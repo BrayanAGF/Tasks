@@ -1,7 +1,9 @@
 import { FirebaseDB } from "../../firebase/config";
-import { loadEquipos, loadProyectosPorEquipo } from "../../tasks/helpers";
-import { loadingProyectos, setProyectos } from "../Proyectos/ProyectosSlice";
-import { addNewEquipo, deleteEquipo, loadingEquipo, setActive, setEquiposPropios } from "./equiposSlice";
+import { loadProyectosPorEquipo } from "../../tasks/helpers";
+import { startloadEquipos } from "../Principal";
+import { DeleteEquipo } from "../Principal/principalSlice";
+import { loadingProyectos, setProyectos } from "../Proyectos/";
+import { deleteEquipo, setActive } from "./equiposSlice";
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite'
 
 
@@ -25,6 +27,7 @@ export const startDeleteEquipos = () => {
         const docRef = doc(FirebaseDB, `Equipos/${active}`);
         await deleteDoc(docRef);
         dispatch(deleteEquipo(active));
+        dispatch(DeleteEquipo(active));
 
     }
 }

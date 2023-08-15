@@ -1,8 +1,9 @@
 
 
 export const getDiasDiff = (f1, f2) => {
-    /* const fecha1 = moment(f1);
-    const fecha2 = moment(f2);
-    const dias = fecha2.diff(fecha1, 'days')+1; */
-    return 1;
+    let fecha1 = new Date(f1);
+    let fecha2 = new Date(f2);
+    let diferencia = fecha2.getTime() - fecha1.getTime();
+    let diasDeDiferencia = diferencia / (1000 * 60 * 60 * 24);
+    return Math.floor(diasDeDiferencia);
 }

@@ -18,7 +18,7 @@ export const Proyecto = () => {
   }, [])
 
   const { Active, ActiveProgreso, ActiveNT, ActiveNTR, Loading } = useSelector(state => state.proyectos);
-  const { Nombre, FechaTermino, Descripcion } = Active;
+  const { Nombre, FechaTermino, Descripcion, Dias} = Active;
   const dias = getDiasDiff(new Date(), FechaTermino);
 
 
@@ -46,7 +46,7 @@ export const Proyecto = () => {
                   <i className="bi bi-card-list"></i>
                   <Typography sx={{ ml: 1 }}>{ActiveNTR} / {ActiveNT}</Typography>
                 </Grid>
-                <Typography>{dias} Días restantes</Typography>
+                <Typography>{Dias} Días restantes</Typography>
               </Grid>
             </Grid>
             <Tabs aria-label="tabs" defaultValue={0} sx={{ backgroundColor: 'transparent' }}>

@@ -17,7 +17,7 @@ export const TareasView = () => {
                             ? <Grid sx={{display: 'grid', placeItems: 'center'}} height='80vh'>
                                 <Grid textAlign='center'>
                                     <Typography level='h3' fontWeight='bold'>Parece que no tienes tareas por ahora</Typography>
-                                    <img src='../../../../../public/assets/images/Tareas.png' width='128px' height='128px'/>
+                                    <img src='../../../../../public/assets/images/tareas.PNG' width='128px' height='128px'/>
                                 </Grid>
                               </Grid>
                             : Tareas.map((tarea, index) => (

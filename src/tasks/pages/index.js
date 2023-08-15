@@ -1,0 +1,5 @@
+export * from './Principal'
+export * from './Perfil'
+export * from './Equipo'
+export * from './Proyecto'
+export * from './Tarea'

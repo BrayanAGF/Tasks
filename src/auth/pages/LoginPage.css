@@ -1,0 +1,13 @@
+
+.imgPortada{
+    background-image: url("../../../public//assets/images/portada.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+
+@media screen and (max-height: 740px) {
+    .img{
+        height: 100vh;
+    }    
+}

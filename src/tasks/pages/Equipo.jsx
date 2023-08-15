@@ -29,7 +29,7 @@ export const Equipo = () => {
             <Grid container sx={{
                 display: 'grid', placeItems: 'center'
             }} className='animate__animated animate__fadeIn animate__faster'>
-                <Grid width={{ md: '60vw' }}>
+                <Grid width={{ md: '60vw', xs: '95vw' }}>
                     <Typography level="h2">{active.Nombre}</Typography>
                     <Typography level="h5">{active.Descripcion}</Typography>
                     <AvatarGroup>

@@ -2,6 +2,8 @@ import { Avatar, Box, Button, FormControl, FormLabel, Grid, IconButton, Input, M
 import { useForm } from "../../../../hooks"
 import { LoadUsuarios } from "../../../helpers";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startAgregarUsuarioEquipo } from "../../../../store/Equipos";
 
 const formData = {
   Nombre: ''
@@ -13,6 +15,9 @@ export const ModalAgregarUsuario = ({ open, set }) => {
   const [usuarios, setUsuarios] = useState([]);
   const [alerta, setAlerta] = useState();
   const [flag, setFlag] = useState(true);
+  const { active } = useSelector(state => state.equipos);
+  const { Integrantes } = active;
+  const dispatch = useDispatch();
   let resp = [];
 
   
@@ -28,7 +33,7 @@ export const ModalAgregarUsuario = ({ open, set }) => {
   const onHandleBuscarUsuario = async() => {
     if(Nombre.length < 2) return;
 
-    resp = await LoadUsuarios(Nombre); 
+    resp = await LoadUsuarios(Nombre, Integrantes); 
 
     if(!resp){
        setFlag(false);
@@ -39,8 +44,13 @@ export const ModalAgregarUsuario = ({ open, set }) => {
     setFlag(true);
   }
 
+  const onHandleAgregarUsuario = async(usuario) => {
+    dispatch(startAgregarUsuarioEquipo(usuario));
+    set();
+  }
+
   const onHandleClose = () => {
-    set()
+    set();
     onResetForm();
     setUsuarios([]);
   }
@@ -67,7 +77,7 @@ export const ModalAgregarUsuario = ({ open, set }) => {
                   <Avatar src={u.photoURL}/>
                   <Typography sx={{ ml: 1 }}>{u.displayName}</Typography>
                 </Grid>
-                <IconButton sx={{ borderRadius: 100, width: 32, height: 32}}>
+                <IconButton sx={{ borderRadius: 100, width: 32, height: 32}} onClick={() => onHandleAgregarUsuario(u)}>
                                 <i className="bi bi-plus-lg"></i>
                 </IconButton>
               </Grid>

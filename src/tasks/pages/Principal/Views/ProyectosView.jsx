@@ -17,7 +17,7 @@ export const ProyectosView = () => {
                             <Card variant='outlined' sx={{ width: { xs: '300px', md: '380px' }, overflow: 'hidden', mb: 1}} >
                                 <CardOverflow>
 
-                                    <Grid sx={{ position: 'absolute', top: -8, bottom: 0, left: -9, right: 0, width: 350 }} >
+                                    <Grid sx={{ position: 'absolute', top: -8, bottom: 0, left: -8, right: 0, width:'105%'}} >
                                         <LinearProgress determinate value={proyecto.Progreso} variant="plain" color="success" sx={{
                                             "--LinearProgress-radius": "0px"
                                         }} />

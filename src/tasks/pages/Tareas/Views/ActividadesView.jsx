@@ -1,4 +1,4 @@
-import { Checkbox, Grid, IconButton, Typography } from "@mui/joy"
+import { Box, Checkbox, Grid, IconButton, Typography } from "@mui/joy"
 import { ModalCrearActividad } from "../Components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,10 @@ export const ActividadesView = () => {
     const { TActividades } = useSelector(state => state.tareas);
     const [checkState, setCheckState] = useState(new Array(TActividades.length).fill(false))
     const dispatch = useDispatch();
-    
+
     const onCheckedActividad = (posicion) => {
-        const updateCheckState = checkState.map((item, index) => 
+
+        const updateCheckState = checkState.map((item, index) =>
             index === posicion ? !item : item
         );
         setCheckState(updateCheckState);
@@ -21,13 +22,13 @@ export const ActividadesView = () => {
     }
 
     useEffect(() => {
-      const arrayTemporal = new Array(TActividades.length).fill(false);
-      TActividades.map((item, index) => {
-        arrayTemporal[index] = item.Realizada === true ? true : false
-      })
-      setCheckState(arrayTemporal);
+        const arrayTemporal = new Array(TActividades.length).fill(false);
+        TActividades.map((item, index) => {
+            arrayTemporal[index] = item.Realizada === true ? true : false
+        })
+        setCheckState(arrayTemporal);
     }, [])
-    
+
 
     return (
         <Grid mb={2}>
@@ -41,7 +42,11 @@ export const ActividadesView = () => {
                 TActividades.map((act, index) => (
                     <Grid container mb={1} alignItems='center' key={index}>
                         <Checkbox checked={checkState[index]} onClick={() => onCheckedActividad(index)} />
-                        <Typography level='h5' sx={{ ml: 1 }}>{act.Descripcion}</Typography>
+                        <Grid position='relative' width={{xs: '85vw', md: 'auto'}}>
+                            <Box id={index} className={`${checkState[index] ? 'marcar' : 'desmarcar'}`}
+                            sx={{position: 'absolute', display: 'block', left: 6}}>check</Box>
+                            <Typography level='h5' sx={{ ml: 1 }}> {act.Descripcion} </Typography>
+                        </Grid>
                     </Grid>
                 ))
             }

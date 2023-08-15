@@ -19,7 +19,7 @@ export const NotasView = () => {
             {
                 TNotas.map((nota, index) => (
                     <Card variant='plain' sx={{ bgcolor: '#FFF7DD', mb: 1 }} key={index}>
-                        <Grid container justifyContent='space-between'>
+                        <Grid>
                             <Grid>
                                 <Grid container alignItems='center'>
                                     <Avatar src={nota.uInfo.photoURL}/>
@@ -27,7 +27,9 @@ export const NotasView = () => {
                                 </Grid>
                                 <Typography>{nota.Nota}</Typography>
                             </Grid>
-                            <Typography>{nota.Fecha}</Typography>
+                            <Grid container justifyContent='end'>
+                                <Typography fontWeight='bold'>{nota.Fecha}</Typography>
+                            </Grid>
                         </Grid>
                     </Card>
                 ))

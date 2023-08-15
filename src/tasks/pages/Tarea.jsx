@@ -25,6 +25,12 @@ export const Tarea = () => {
     setnActividadesRealizadas(cont);
     TActividades.length === 0 ? 0 : setProgreso(cont * 100 / TActividades.length);
   }, [TActividades])
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--progreso', `${progreso}%`);
+  }, [progreso])
+  
   
 
   return (
@@ -32,14 +38,14 @@ export const Tarea = () => {
       <Grid sx={{ display: 'grid', placeItems: 'center' }}>
 
         <Grid width={{ sm: '60vw', xs: '95vw' }}>
-          <Grid container justifyContent='space-between'>
-            <Grid>
-              <Typography level="h2">{Nombre}</Typography>
-              <Typography level="h5">{Descripcion}</Typography>
-            </Grid>
+          <Grid>
+            <Grid container justifyContent='space-between'>
+              <Typography level="h2" sx={{width: {xs: 300}}}>{Nombre}</Typography>
             <Box>
               <OpcionesTarea />
             </Box>
+            </Grid>
+              <Typography level="h5">{Descripcion}</Typography>
           </Grid>
           <AvatarGroup sx={{mb: 1}}>
             {
@@ -50,8 +56,8 @@ export const Tarea = () => {
               ))
             }
           </AvatarGroup>
-          <LinearProgress determinate variant="plain" color="success" value={progreso}
-          sx={{transitionProperty: 'width', transitionDuration: '300ms'}}/>
+          <LinearProgress determinate variant="plain" color="success" value={100}
+          className='barraProgreso'/>
           <Grid container justifyContent='space-between'>
             <Grid container alignItems='center'>
               <i className="bi bi-card-list"></i>

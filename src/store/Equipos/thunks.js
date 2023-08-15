@@ -43,3 +43,22 @@ export const startSelectEquipoActive = (equipo) => {
     }
 }
 
+
+export const startAgregarUsuarioEquipo = (Usuario) => {
+    return async(dispatch, getState) => {
+
+        const { active } = getState().equipos;
+        const { Integrantes, infoU } = active;
+        const newIntegrantes = [...Integrantes, Usuario.id];
+        const newInfoU = [...infoU, Usuario];
+        const docRef = doc(FirebaseDB, `Equipos/${active.id}`);
+        await setDoc(docRef,  { Integrantes: newIntegrantes }, { merge: true });
+
+        let equipoConNuevoIntegrante = {...active}
+        delete equipoConNuevoIntegrante.Integrantes;
+        delete equipoConNuevoIntegrante.infoU;
+        equipoConNuevoIntegrante = {...equipoConNuevoIntegrante, Integrantes: newIntegrantes, infoU: newInfoU}
+
+        dispatch(setActive(equipoConNuevoIntegrante));
+    }
+}

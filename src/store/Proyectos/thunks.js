@@ -14,7 +14,6 @@ export const startCreateProyecto = (proyecto) => {
         
         const { active } = getState().equipos
         proyecto = { IdEquipo: active.id, ...proyecto }
-        console.log(proyecto);
 
         const docRef = doc(collection(FirebaseDB, `Proyectos/`));
         await setDoc(docRef, proyecto);

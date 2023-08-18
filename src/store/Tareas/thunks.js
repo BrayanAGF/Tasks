@@ -3,12 +3,13 @@ import { FirebaseDB } from "../../firebase/config"
 import { addActividad, addNota, addTarea, deleteTarea, setTActividades, setTareas } from "./tareasSlice"
 import { startUpdateProgreso } from "../Proyectos"
 import { getInfoUser } from "../../tasks/helpers"
+import { startRegistrarActividad } from "../Actividad/thunks"
 
 
 export const startCreateTarea = (tarea) => {
     return async (dispatch, getState) => {
         const { Active } = getState().proyectos;
-
+        
         const tareaInsertar = {...tarea, IdProyecto: Active.id}
         
         delete tareaInsertar.progreso
@@ -36,6 +37,7 @@ export const startCreateTarea = (tarea) => {
         dispatch(addTarea(tarea));
         const { Tareas } = getState().tareas;
         dispatch(startUpdateProgreso(Tareas));
+        dispatch(startRegistrarActividad('Tarea', 'ha creado la tarea', tarea.Nombre));
     }
 }
 
@@ -59,6 +61,7 @@ export const startMarkActividad = (posicion) => {
 
         const { TActividades, Tactive } = getState().tareas;
         const { id } = Tactive;
+
         const TActividadesNuevo = [...TActividades];
         const elementoNuevo = { ...TActividadesNuevo[posicion] };
         elementoNuevo.Realizada = !elementoNuevo.Realizada;
@@ -68,6 +71,10 @@ export const startMarkActividad = (posicion) => {
         await setDoc(docRef, { Actividades: TActividadesNuevo }, { merge: true });
 
         dispatch(setTActividades(TActividadesNuevo));
+        
+        elementoNuevo.Realizada 
+        ? dispatch(startRegistrarActividad('Tarea','ha completado la actividad', elementoNuevo.Descripcion))
+        : dispatch(startRegistrarActividad('Tarea','ha retomado la actividad', elementoNuevo.Descripcion));
     }
 }
 
@@ -77,7 +84,7 @@ export const startCreateNota = (NotaTarea) => {
         const { Titulo, Nota } = NotaTarea;
         const { displayName, photoURL } = getState().auth;
         const { Tactive, TNotas } = getState().tareas;
-        const { id } = Tactive;
+        const { id, Nombre } = Tactive;
 
         const nuevaNota = {
             Titulo: Titulo,
@@ -93,7 +100,7 @@ export const startCreateNota = (NotaTarea) => {
         nuevaNota.id = docRef.id;
 
         dispatch(addNota(nuevaNota));
-
+        dispatch(startRegistrarActividad('Tarea','ha creado una nota en la tarea', Nombre));
 
     }
 }

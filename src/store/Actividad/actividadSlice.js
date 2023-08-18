@@ -8,10 +8,13 @@ export const actividadSlice = createSlice({
     reducers: {
         setActividad: (state, {payload}) => {
             state.Actividad = payload;
+        },
+        addActividad: (state, {payload}) => {
+            state.Actividad = [ payload, ...state.Actividad];
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { setActividad } = actividadSlice.actions;
+export const { setActividad, addActividad } = actividadSlice.actions;

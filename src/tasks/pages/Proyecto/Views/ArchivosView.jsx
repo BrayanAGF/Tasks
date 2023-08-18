@@ -1,8 +1,9 @@
-import { Avatar, Box, Card, Grid, IconButton, Link, Tooltip, Typography } from '@mui/joy'
+import { Avatar, Box, Button, Card, Grid, IconButton, Link, Tooltip, Typography } from '@mui/joy'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { startLoadArchivo } from '../../../../store';
 import { MenuChicoArchivos } from '../Components';
+import { supabase } from '../../../../supabase';
 
 
 export const ArchivosView = () => {
@@ -20,12 +21,12 @@ export const ArchivosView = () => {
     return (
         <Grid mt={2} className='animate__animated animate__fadeIn animate__faster'>
             <Typography level="h4" fontWeight='bold'>Archivos</Typography>
-            <Grid height={70} width={{xs: '95vw', md: '69vw'}} sx={{ border: '2px dotted #6C757D', display: 'grid', placeItems: 'center' }}>
+            <Grid height={70} width={{ xs: '95vw', md: '69vw' }} sx={{ border: '2px dotted #6C757D', display: 'grid', placeItems: 'center' }}>
                 <Typography
                     fontWeight='bold'
                     sx={{ cursor: 'pointer' }}
                     onClick={() => fileInputRef.current.click()}
-                    >
+                >
                     Haz click aquí para subir un archivo
                 </Typography>
                 <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={onFileInputChange} />
@@ -34,7 +35,7 @@ export const ArchivosView = () => {
             <Grid mt={2}>
                 {
                     Archivos.map((archivo, index) => (
-                        <Card key={index} sx={{width: {xs: '91%', md: 766 ,xl: '97%'}, mb: 1}} variant='outlined'>
+                        <Card key={index} sx={{ width: { xs: '91%', md: 766, xl: '97%' }, mb: 1 }} variant='outlined'>
                             <Grid container justifyContent='space-between' alignItems='center'>
                                 <Grid container alignItems='center'>
                                     <Grid container>
@@ -44,16 +45,16 @@ export const ArchivosView = () => {
                                         </Box>
                                         <Box right={8} position='relative'>
                                             <Tooltip title={archivo.usuario.displayName}>
-                                                <Avatar src={archivo.usuario.photoURL}/>
+                                                <Avatar src={archivo.usuario.photoURL} />
                                             </Tooltip>
                                         </Box>
                                     </Grid>
                                     <Grid>
                                         <Typography fontWeight='bold' sx={{ color: 'blue' }} component='span'>
-                                            <Box width={{md: 600, xs: 150}}
-                                            sx={{overflow: 'hidden'}}
+                                            <Box width={{ md: 600, xs: 150 }}
+                                                sx={{ overflow: 'hidden' }}
                                             ><a href={archivo.URL} download>{archivo.Nombre}</a></Box>
-                                            </Typography>
+                                        </Typography>
                                         <Typography>{archivo.Extension.toUpperCase()}</Typography>
                                     </Grid>
                                 </Grid>

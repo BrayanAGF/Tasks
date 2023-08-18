@@ -7,6 +7,8 @@ import { loadArchivosPorProyecto } from "../../tasks/helpers/loadArchivosPorProy
 import { setArchivos } from "../Archivos/archivosSlice"
 import { addInfoUsuarios } from "../../tasks/helpers/addInfoUsuarios"
 import { setActive } from "../Equipos"
+import { loadActividad } from "../../tasks/helpers"
+import { setActividad } from "../Actividad"
 
 
 export const startCreateProyecto = (proyecto) => {
@@ -66,6 +68,7 @@ export const startLoadProyecto = () => {
         dispatch(loadingProyectos(true));
         dispatch(startLoadTareas());
         dispatch(startLoadArchivos());
+        dispatch(startLoadActividad());
     }
 }
 
@@ -98,13 +101,24 @@ export const startLoadTareas = () => {
     }
 }
 
-export const startLoadArchivos = (idProyecto) => {
+export const startLoadArchivos = () => {
     return async (dispatch, getState) => {
         
         const {Active} = getState().proyectos;
         const { id } = Active;
         const archivos = await loadArchivosPorProyecto(id);
         dispatch(setArchivos(archivos));
+    
+    }
+}
+
+export const startLoadActividad = () => {
+    return async (dispatch, getState) => {
+        
+        const {Active} = getState().proyectos;
+        const { id } = Active;
+        const actividades = await loadActividad(id);
+        dispatch(setActividad(actividades));
     
     }
 }

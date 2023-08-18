@@ -1,14 +1,17 @@
 import { Avatar, Box, Card, Divider, Grid, Typography } from '@mui/joy'
-import React from 'react'
+import { useSelector } from 'react-redux'
 
 export const ActividadView = () => {
+
+    const { Actividad } = useSelector(state => state.actividad);
+
     return (
         <Grid mt={2}  className='animate__animated animate__fadeIn animate__faster'>
             <Typography level='h4' fontWeight='bold'> Actividad </Typography>
 
             <Card variant='outlined'>
                 {
-                    [1,2,3,4,5,1,2,3,4,5].map((elemento, index) => (
+                    Actividad.map((act, index) => (
                         <Grid key={index}>
                             <Grid container padding={1} alignItems='center'>
                                 <Grid container >
@@ -17,16 +20,16 @@ export const ActividadView = () => {
                                         <span><i className="bi bi-file-earmark-fill"></i></span>
                                     </Box>
                                     <Box right={8} position='relative'>
-                                        <Avatar />
+                                        <Avatar src={act.photoURL}/>
                                     </Box>
                                 </Grid>
                                 <Grid>
                                     <Typography>
-                                        <Typography fontWeight='bold'>Brayan </Typography>
-                                        ha cargado el archivo
-                                        <Typography fontWeight='bold' sx={{ color: 'blue' }}> Curso ASP</Typography>
+                                        <Typography fontWeight='bold'>{act.Integrante} </Typography>
+                                        {act.Mensaje}
+                                        <Typography fontWeight='bold' sx={{ color: 'blue' }}> {act.Complemento}</Typography>
                                     </Typography>
-                                    <Typography>19/05/2023 01:04</Typography>
+                                    <Typography>{act.Fecha}</Typography>
                                 </Grid>
                             
                             </Grid>

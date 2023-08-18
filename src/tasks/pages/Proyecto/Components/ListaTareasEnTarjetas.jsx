@@ -24,7 +24,7 @@ export const ListaTareasEnTarjetas = ({ Tareas }) => {
                                 <AvatarGroup>
                                     {
                                         tarea.infoU.map((integrante, index) => (
-                                            <Tooltip title={integrante.displayName} key={index}>
+                                            <Tooltip title={integrante.displayName} key={index} arrow>
                                                 <Avatar src={integrante.photoURL} />
                                             </Tooltip>
                                         ))

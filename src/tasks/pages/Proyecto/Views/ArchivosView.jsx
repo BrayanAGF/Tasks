@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, Grid, IconButton, Tooltip, Typography } from '@mui/joy'
+import { Avatar, Box, Card, Grid, IconButton, Link, Tooltip, Typography } from '@mui/joy'
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { startLoadArchivo } from '../../../../store';
@@ -52,7 +52,7 @@ export const ArchivosView = () => {
                                         <Typography fontWeight='bold' sx={{ color: 'blue' }} component='span'>
                                             <Box width={{md: 600, xs: 150}}
                                             sx={{overflow: 'hidden'}}
-                                            >{archivo.Nombre}</Box>
+                                            ><a href={archivo.URL} download>{archivo.Nombre}</a></Box>
                                             </Typography>
                                         <Typography>{archivo.Extension.toUpperCase()}</Typography>
                                     </Grid>

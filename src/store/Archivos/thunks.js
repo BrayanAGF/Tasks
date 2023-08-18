@@ -9,6 +9,7 @@ export const startLoadArchivo = (archivo) => {
         const { Active } = getState().proyectos;
         const { id } = Active;
         const { name } = archivo;
+        
         const nombre = name.substring(0, name.lastIndexOf('.'));
         const extension = name.substring(name.lastIndexOf('.') + 1, name.length);
 

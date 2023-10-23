@@ -18,6 +18,10 @@ export const principalSlice = createSlice({
         DeleteEquipo: (state, {payload}) => {
             state.Equipos = state.Equipos.filter(equipo => equipo.id !== payload);
         },
+        EditEquipo: (state, {payload}) => {
+            const equiposTemporal = state.Equipos.filter(equipo => equipo.id !== payload.id);
+            state.Equipos = [...equiposTemporal, payload];
+        },
         setTareasPrincipal: (state, {payload}) => {
             state.Tareas = payload;
         },
@@ -34,5 +38,6 @@ export const {
     setEquiposPrincipal,
     setProyectosPrincipal,
     setTareasPrincipal,
-    DeleteEquipo
+    DeleteEquipo,
+    EditEquipo
 } = principalSlice.actions;

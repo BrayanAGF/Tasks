@@ -33,9 +33,7 @@ export const NavbarMobile = () => {
     useEffect(() => {
 
         const handleOrientationChange = () => {
-            console.log(orientation);
             setOrientation(window.screen.orientation.type);
-            this.forceUpdate();
         };
 
         window.addEventListener('orientationchange', handleOrientationChange);

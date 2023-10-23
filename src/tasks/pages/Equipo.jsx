@@ -1,106 +1,58 @@
-import { Avatar, AvatarGroup, Box, Divider, Grid, IconButton, Tab, TabList, TabPanel, Tabs, Tooltip, Typography } from "@mui/joy"
-import { tabClasses } from '@mui/joy/Tab';
-import { Layout } from "../layout/Layout"
-import { useSelector } from "react-redux"
-import { FloatingButton } from "../components";
-import { useEffect, useState } from "react";
 
-import {ModalAgregarUsuario, ModalCrearProyecto, MenuChicoProyectos} from './Equipo/Components'
+import { useSelector } from "react-redux"
+import { ModalAgregarUsuario, ModalCrearProyecto, MenuChicoProyectos } from './Equipo/Components'
 import { ProyectosEquipoView, IntegrantesEquipoView } from "./Equipo/Views";
+import { Avatar, AvatarGroup, Divider, Tab, Tabs, Tooltip } from "@nextui-org/react";
 
 
 export const Equipo = () => {
-
-    const [openModal, setOpenModal] = useState(false);
-    const [ownerOn, setOwnerOn] = useState(false);
-    const [openModalAgregarUsuario, setOpenModalAgregarUsuario] = useState(false);
+    
     const { active } = useSelector(state => state.equipos);
     const { uid } = useSelector(state => state.auth);
 
-    useEffect(() => {
-        if (active.Owner === uid) {
-            setOwnerOn(true);
-        }
-    }, [])
-
 
     return (
-        <Layout>
-            <Grid container sx={{
-                display: 'grid', placeItems: 'center'
-            }} className='animate__animated animate__fadeIn animate__faster'>
-                <Grid width={{ md: '60vw', xs: '95vw' }}>
-                    <Typography level="h2">{active.Nombre}</Typography>
-                    <Typography level="h5">{active.Descripcion}</Typography>
-                    <AvatarGroup>
+        <div>
+
+            <div id="HeaderEquipo">
+                <h1 className="text-5xl Fuente1">{active.Nombre}</h1>
+                <h3 className="text-xl Fuente1">{active.Descripcion}</h3>
+                <div className="flex items-center">
+                    <AvatarGroup className="flex justify-start mt-2">
                         {
-                            active.infoU.map((usuario) => (
-                                <Tooltip key={usuario.displayName} title={usuario.displayName} arrow placement="bottom">
-                                    <Avatar src={usuario.photoURL}></Avatar>
+                            active.infoU.map((value, index) => (
+                                <Tooltip content={value.displayName} placement="bottom" showArrow className="z-0">
+                                    <Avatar key={index} src={value.photoURL} />
                                 </Tooltip>
                             ))
                         }
-                        {
-                            ownerOn && <IconButton sx={{ borderRadius: 100 }} onClick={() => setOpenModalAgregarUsuario(!openModalAgregarUsuario)}>
-                                <i className="bi bi-plus-lg"></i>
-                            </IconButton>
-                        }
                     </AvatarGroup>
-                    <Grid mt={1}>
-                        <Divider />
-                    </Grid>
+                    {
+                        active.Owner === uid && <ModalAgregarUsuario/>
+                    }
+                </div>
+                <Divider className="mt-2" />
+            </div>
 
-                    <Tabs aria-label="tabs" defaultValue={0} sx={{ backgroundColor: 'transparent' }}>
-                        <TabList
-                            sx={{
-                                backgroundColor: 'transparent',
-                                '--List-padding': '0px',
-                                '--List-radius': '0px',
-                                '--ListItem-minHeight': '48px',
-                                [`& .${tabClasses.root}`]: {
-                                    boxShadow: 'none',
-                                    fontWeight: 'md',
-                                    [`&.${tabClasses.selected}::before`]: {
-                                        content: '""',
-                                        display: 'block',
-                                        position: 'absolute',
-                                        left: 'var(--ListItem-paddingLeft)', // change to `0` to stretch to the edge.
-                                        right: 'var(--ListItem-paddingRight)', // change to `0` to stretch to the edge.
-                                        bottom: 0,
-                                        height: 3,
-                                        bgcolor: 'black',
-                                    },
-                                },
-                            }}
-                        >
-                            <Tab sx={{ backgroundColor: 'transparent' }}>Proyectos</Tab>
-                            <Tab sx={{ backgroundColor: 'transparent' }}>Integrantes</Tab>
-                        </TabList>
+            <div id="BodyEquipo" className="mt-3 Fuente1 ">
+                <Tabs aria-label="Dynamic tabs" fullWidth
+                    classNames={{
+                        tabList: 'bg-[#E9ECEF] rounded-lg text-white',
+                        tabContent: 'group-data-[selected=true]:text-[#516BEB] text-[#85898C] hover:text-[#516BEB] ',
+                    }}>
 
-                        <TabPanel value={0} >
-                            <ProyectosEquipoView />
-                        </TabPanel>
+                    <Tab key={0} title='Proyectos'>
+                        <ProyectosEquipoView/>
+                    </Tab>
 
-                        <TabPanel value={1} >
-                            <IntegrantesEquipoView />
-                        </TabPanel>
+                    <Tab key={1} title='Integrantes'>
+                        <IntegrantesEquipoView />
+                    </Tab>
 
-                        {
-                            ownerOn &&
-                            <Grid>
-                                <FloatingButton fn={() => setOpenModal(!openModal)}>
-                                    <i className="bi bi-plus-lg"></i> <Box ml={1}> Nuevo proyecto </Box>
-                                </FloatingButton>
-                                <ModalCrearProyecto open={openModal} set={() => setOpenModal(!openModal)} />
-                                <ModalAgregarUsuario open={openModalAgregarUsuario} set={() => setOpenModalAgregarUsuario(!openModalAgregarUsuario)} />
-                            </Grid>
-                        }
-                    </Tabs>
+                </Tabs>
+            </div>
 
-                    
-
-                </Grid>
-            </Grid>
-        </Layout>
+            <ModalCrearProyecto  />            
+        </div>
     )
 }

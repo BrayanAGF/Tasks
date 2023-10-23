@@ -8,6 +8,7 @@ export const authSlice = createSlice({
         email: null,
         displayName: null,
         photoURL: null,
+        ProyectosFavoritos: [],
         errorMessage: null,
     },
     reducers: {
@@ -17,6 +18,7 @@ export const authSlice = createSlice({
             state.email = payload.email;
             state.displayName = payload.displayName;
             state.photoURL = payload.photoURL;
+            state.ProyectosFavoritos = payload.ProyectosFavoritos;
             state.errorMessage = null;
         },
         logout: (state, { payload }) => {
@@ -25,6 +27,7 @@ export const authSlice = createSlice({
            state.email = null;
            state.displayName = null;
            state.photoURL = null;
+           state.ProyectosFavoritos = [];
            state.errorMessage = payload?.errorMessage;
         },
         checkinCredentials: (state) => {
@@ -32,10 +35,13 @@ export const authSlice = createSlice({
         },
         updatePhotoURL: (state, {payload}) => {
             state.photoURL = payload;
+        },
+        addProyectoFavorito:(state, {payload}) => {
+            state.ProyectosFavoritos = [...state.ProyectosFavoritos, payload];
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { login, logout, checkinCredentials, updatePhotoURL } = authSlice.actions;
+export const { login, logout, checkinCredentials, updatePhotoURL, addProyectoFavorito } = authSlice.actions;

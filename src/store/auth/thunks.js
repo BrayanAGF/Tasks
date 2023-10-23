@@ -1,6 +1,6 @@
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { singInWithGoogle, logoutFirebase, loginWithEmailAndPassword, registerWithEmailAndPassword } from "../../firebase/providers";
-import { checkinCredentials, login, logout, updatePhotoURL } from "./authSlice";
+import { addProyectoFavorito, checkinCredentials, login, logout, updatePhotoURL } from "./authSlice";
 import { FirebaseAuth, FirebaseDB, FirebaseStorage } from "../../firebase/config";
 import { doc, setDoc } from "firebase/firestore/lite";
 import { updateProfile } from "firebase/auth";
@@ -12,10 +12,10 @@ export const startGoogleSingIn = () => {
         const resp = await singInWithGoogle();
         if (!resp.ok) return dispatch(logout());
 
-        const { uid, photoURL } = resp;
+        const { uid, photoURL, displayName, email } = resp;
 
         const newDoc = doc(FirebaseDB, `Usuarios`, uid);
-        await setDoc(newDoc, { photoURL: photoURL }, { merge: true });
+        await setDoc(newDoc, { photoURL: photoURL, displayName: displayName, email: email }, { merge: true });
 
         dispatch(login(resp));
     }
@@ -52,15 +52,17 @@ export const startUpdatePhoto = (Foto) => {
         const { name } = Foto;
         const extension = name.substring(name.lastIndexOf('.') + 1, name.length);
         const { uid, photoURL } = getState().auth;
-        const photoURLTemp = photoURL.substring(photoURL.lastIndexOf("/") + 1, photoURL.length);
-        const factorUnico = Math.floor(Math.random() * 20);
-        console.log(photoURLTemp)
 
-        await supabase
+        if(photoURL){
+            const photoURLTemp = photoURL.substring(photoURL.lastIndexOf("/") + 1, photoURL.length);
+            
+            await supabase
             .storage
             .from('avatars')
             .remove(`FPerfiles/${photoURLTemp}`)
-
+        }
+        
+        const factorUnico = Math.floor(Math.random() * 20);
 
         await supabase
             .storage
@@ -78,5 +80,20 @@ export const startUpdatePhoto = (Foto) => {
         await setDoc(newDoc, { photoURL: publicUrl }, { merge: true });
 
         dispatch(updatePhotoURL(publicUrl));
+    }
+}
+
+
+export const startAddFavorito = () => {
+    return async(dispatch, getState) => {
+        const { Active } = getState().proyectos;
+        const { ProyectosFavoritos, uid } = getState().auth;
+        const { Nombre, id } = Active;
+        const newProyectosFavoritos = [...ProyectosFavoritos, {Nombre: Nombre, id: id}];
+
+        const newDoc = doc(FirebaseDB, `/Usuarios/${uid}`);
+        await setDoc(newDoc, { ProyectosFavoritos:  newProyectosFavoritos}, { merge: true });
+
+        dispatch(addProyectoFavorito({Nombre: Nombre, id: id}));
     }
 }

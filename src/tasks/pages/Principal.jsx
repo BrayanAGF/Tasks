@@ -1,99 +1,58 @@
-import { Box, Grid, Tab, TabList, TabPanel, Tabs } from "@mui/joy"
+
 import { Layout } from "../layout/Layout"
-import { tabClasses } from '@mui/joy/Tab';
 import { EquiposView, ProyectosView, TareasView } from "./Principal/Views";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoadApp } from "../../store/Principal/thunks";
 import { CardLoading } from "../components";
+import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
 
 
 export const Principal = () => {
 
   const dispatch = useDispatch();
-  const {Loading} = useSelector(state => state.principal)
+  const { Loading } = useSelector(state => state.principal)
 
   useEffect(() => {
     dispatch(startLoadApp());
   }, [])
 
 
- 
   return (
-    <Layout>
+      <div className="w-full h-full Fuente1 ">
 
-      <Grid>
-        <Tabs aria-label="tabs" defaultValue={0} sx={{ backgroundColor: 'transparent' }}>
-          <TabList
-            sx={{
-              backgroundColor: 'transparent',
-              '--List-padding': '0px',
-              '--List-radius': '0px',
-              '--ListItem-minHeight': '48px',
-              [`& .${tabClasses.root}`]: {
-                boxShadow: 'none',
-                fontWeight: 'md',
-                [`&.${tabClasses.selected}::before`]: {
-                  content: '""',
-                  display: 'block',
-                  position: 'absolute',
-                  left: 'var(--ListItem-paddingLeft)', // change to `0` to stretch to the edge.
-                  right: 'var(--ListItem-paddingRight)', // change to `0` to stretch to the edge.
-                  bottom: 0,
-                  height: 3,
-                  bgcolor: 'black',
-                },
-              },
-            }}
-          >
-            <Tab sx={{ backgroundColor: 'transparent' }}>Mis equipos</Tab>
-            <Tab sx={{ backgroundColor: 'transparent' }}>Mis proyectos</Tab>
-            <Tab sx={{ backgroundColor: 'transparent' }}>Mis tareas</Tab>
-          </TabList>
-
-
-          <Box marginTop={2}>
-            <Box sx={{overflowX: 'hidden', overflowY: 'hidden'}}>
-              <TabPanel value={0}>
-               { 
-                Loading 
-                ? <CardLoading />
-                : <EquiposView/>
-                }
-              </TabPanel>
-            </Box>
-
-
-
-            <Box overflow='hidden'>
-              <TabPanel value={1} >
-                { 
-                Loading 
-                ? <CardLoading />
-                : <ProyectosView />
-                }
-              </TabPanel>
-            </Box>
-
-
-            <Box overflow='hidden'>
-              <TabPanel value={2} >
-              { 
-                Loading 
-                ? <CardLoading />
-                : <TareasView />
+        <div>
+          <Tabs aria-label="Dynamic tabs" fullWidth 
+            classNames={{
+              tabList: 'bg-[#E9ECEF] rounded-lg text-white',
+              tabContent: 'group-data-[selected=true]:text-[#837bb6] text-[#85898C] hover:text-[#516BEB] ',
+              panel: 'principalPanel'
+            }}>
+            <Tab key={0} title='Equipos'>
+              {
+                Loading
+                  ? <CardLoading />
+                  : <EquiposView />
               }
-              </TabPanel>
-            </Box>
+            </Tab>
+            <Tab key={1} title='Proyectos'>
+              {
+                Loading
+                  ? <CardLoading />
+                  : <ProyectosView />
+              }
+            </Tab>
+            <Tab key={2} title='Tareas'>
+              {
+                Loading
+                  ? <CardLoading />
+                  : <TareasView />
+              }
+            </Tab>
+          </Tabs>
+        </div>
 
-          </Box>
+      </div>
 
-        </Tabs>
-
-      </Grid>
-      
-      
-
-    </Layout>
   )
 }

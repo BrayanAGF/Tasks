@@ -1,19 +1,15 @@
-import { Grid } from "@mui/joy"
+
 import { Navbar, NavbarMobile } from "../components"
 
-export const Layout = ({children}) => {
+export const Layout = ({ children }) => {
 
   return (
-    <Grid container>
+    <div className="h-screen w-screen">
       <Navbar />
-      <Grid width={{xs: '100vw', md: 'calc(100vw - 190px)'}}
-      padding={1}
-      marginLeft={{xs: 0, md: '15vw'}} 
-      marginTop={{xs: 7, sm: 7, md: 0}}
-      >
+      <div className="ml-[320px] w-9/12 h-screen py-3 ">
         {children}
-      </Grid>
-     <NavbarMobile />
-    </Grid>
+      </div>
+      {/* <NavbarMobile /> */}
+    </div>
   )
 }

@@ -2,27 +2,30 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Equipo, Perfil, Principal, Proyecto, Tarea } from '../pages'
 import { useSelector } from 'react-redux'
+import { Layout } from '../layout/Layout'
 
 export const TasksRoutes = () => {
 
   const { active } = useSelector(state => state.equipos)
   const { Active } = useSelector(state => state.proyectos)
   const { Tactive } = useSelector(state => state.tareas)
-  
+
   return (
-    <Routes>
+    <Layout>
+      <Routes>
         <Route path='/*' element={<Principal />} />
-        <Route path='/Perfil' element={<Perfil />}/>       
+        <Route path='/Perfil' element={<Perfil />} />
         {
-          active !== null && <Route path='/Equipo' element={<Equipo />}/>
+          active !== null && <Route path='/Equipo' element={<Equipo />} />
         }
         {
-          Active !== null && <Route path='/Proyecto' element={<Proyecto />}/>
+          Active !== null && <Route path='/Proyecto' element={<Proyecto />} />
         }
         {
-          Tactive !== null && <Route path='/Tarea' element={<Tarea />}/>
+          Tactive !== null && <Route path='/Tarea' element={<Tarea />} />
         }
-        
-    </Routes>
+
+      </Routes>
+    </Layout>
   )
 }

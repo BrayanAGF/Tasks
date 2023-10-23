@@ -1,5 +1,5 @@
 import { collection, deleteDoc, doc, setDoc } from "firebase/firestore/lite"
-import { FirebaseDB} from "../../firebase/config"
+import { FirebaseDB } from "../../firebase/config"
 import { loadTareas } from "../../tasks/helpers/loadTareas"
 import { addNewProyecto, deleteProyecto, loadingProyectos, setActiveNT, setActiveNTR, setActiveP, setActiveProgreso } from "../Proyectos"
 import { setTareas, setViewMode } from "../Tareas/tareasSlice"
@@ -13,7 +13,7 @@ import { setActividad } from "../Actividad"
 
 export const startCreateProyecto = (proyecto) => {
     return async (dispatch, getState) => {
-        
+
         const { active } = getState().equipos
         proyecto = { IdEquipo: active.id, ...proyecto }
 
@@ -72,29 +72,30 @@ export const startLoadProyecto = () => {
     }
 }
 
-export const startSetActiveProyecto = (proyecto) => {
+export const startSetActiveProyecto = (idProyecto) => {
     return async (dispatch, getState) => {
 
-        const { Equipos} = getState().principal;
-        const {IdEquipo} = proyecto;
+        const { Equipos, Proyectos } = getState().principal;
+        const proyecto = Proyectos.find(p => p.id === idProyecto);
+        const { IdEquipo } = proyecto;
         const equipoActivo = Equipos.find(e => e.id === IdEquipo);
         dispatch(setActive(equipoActivo));
         dispatch(setActiveP(proyecto));
 
-     }
+    }
 }
 
 export const startLoadTareas = () => {
     return async (dispatch, getState) => {
 
-        const {Active} = getState().proyectos;
+        const { Active } = getState().proyectos;
         const { id } = Active;
         const tareas = await loadTareas(id);
         const tareasNueva = await addInfoUsuarios(tareas);
         dispatch(startUpdateProgreso(tareasNueva));
         dispatch(setTareas(tareasNueva));
         const viewMode = localStorage.getItem('vistaTareas')
-        if(viewMode !== null) dispatch(setViewMode(viewMode.replaceAll('"','')));
+        if (viewMode !== null) dispatch(setViewMode(viewMode.replaceAll('"', '')));
 
         dispatch(loadingProyectos(false));
 
@@ -103,23 +104,23 @@ export const startLoadTareas = () => {
 
 export const startLoadArchivos = () => {
     return async (dispatch, getState) => {
-        
-        const {Active} = getState().proyectos;
+
+        const { Active } = getState().proyectos;
         const { id } = Active;
         const archivos = await loadArchivosPorProyecto(id);
         dispatch(setArchivos(archivos));
-    
+
     }
 }
 
 export const startLoadActividad = () => {
     return async (dispatch, getState) => {
-        
-        const {Active} = getState().proyectos;
+
+        const { Active } = getState().proyectos;
         const { id } = Active;
         const actividades = await loadActividad(id);
         dispatch(setActividad(actividades));
-    
+
     }
 }
 

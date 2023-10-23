@@ -1,9 +1,9 @@
 import { FirebaseDB } from "../../firebase/config";
 import { loadProyectosPorEquipo } from "../../tasks/helpers";
 import { startloadEquipos } from "../Principal";
-import { DeleteEquipo } from "../Principal/principalSlice";
+import { DeleteEquipo, EditEquipo } from "../Principal/principalSlice";
 import { loadingProyectos, setProyectos } from "../Proyectos/";
-import { deleteEquipo, setActive } from "./equiposSlice";
+import { setActive } from "./equiposSlice";
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite'
 
 
@@ -19,15 +19,27 @@ export const startCrearNuevoEquipo = (equipo) => {
     }
 }
 
+export const startEditEquipo = (Equipo) => {
+    return async (dispatch) => {
+        dispatch(EditEquipo(Equipo));
 
-export const startDeleteEquipos = () => {
-    return async(dispatch, getState) => {
+        const idEquipo = Equipo.id;
+        const equipoTemporal = {...Equipo}
+        delete equipoTemporal.infoU;
+        delete equipoTemporal.id;
 
-        const { active } = getState().equipos;
-        const docRef = doc(FirebaseDB, `Equipos/${active}`);
+        const docRef = doc(FirebaseDB, `Equipos/${idEquipo}`);
+        await setDoc(docRef, equipoTemporal, {merge: true});
+    }
+}
+
+
+export const startDeleteEquipos = (IdEquipo) => {
+    return async(dispatch) => {
+
+        const docRef = doc(FirebaseDB, `Equipos/${IdEquipo}`);
         await deleteDoc(docRef);
-        dispatch(deleteEquipo(active));
-        dispatch(DeleteEquipo(active));
+        dispatch(DeleteEquipo(IdEquipo));
 
     }
 }

@@ -1,43 +1,55 @@
-import { Box, Card, Grid, Link, Typography } from "@mui/joy"
-import { useDispatch, useSelector } from "react-redux";
-import { MenuChicoProyectos } from "../Components";
-import { CardLoading } from "../../../components";
-import { Link as RouterLink } from "react-router-dom";
-import { setActiveP, startSetActiveProyecto } from "../../../../store";
+import { useSelector } from "react-redux";
+import { CardLoading, CardProyectos } from "../../../components";
+
+
 
 export const ProyectosEquipoView = () => {
 
-    const { active } = useSelector(state => state.equipos);
     const { Proyectos, Loading } = useSelector(state => state.proyectos)
-    const { uid } = useSelector(state => state.auth);
-    const dispatch = useDispatch();
 
-    if (Loading) return (<CardLoading />)
+    /* if (Loading) return (<CardLoading />) */
 
     return (
-        <Grid mt={1} className='animate__animated animate__fadeInLeft animate__faster'>
+        <div className="flex flex-col gap-2">
             {
-                Proyectos.map((proyecto, index) => (
-                    <Grid mb={1} key={index}>
-                        <Card variant="outlined">
-                            <Grid container justifyContent='space-between'>
-                                <Grid>
-                                    <Link component={RouterLink} to='/Proyecto' onClick={() => dispatch(setActiveP(proyecto))}>
-                                        <Typography level="h4" fontWeight='bold'>{proyecto.Nombre}</Typography>
-                                    </Link>
-                                    <Typography level="h6">{proyecto.Descripcion}</Typography>
-                                </Grid>
-                                {
-                                    (active.Owner === uid) &&
-                                    <Box>
-                                        <MenuChicoProyectos idProyecto={proyecto.id} />
-                                    </Box>
-                                }
-                            </Grid>
-                        </Card>
-                    </Grid>
-                ))
+                Proyectos.length > 0
+                    ?
+                    Proyectos.map((value, index) => (
+                        <CardProyectos key={index} Data={value}/>
+                    ))
+                    :
+                    <div className="grid place-items-center h-4/5">
+                        <div className="flex flex-col items-center">
+                            <img src="./assets/images/Team.svg" width='402px' height='300px' />
+                            <p className="font-bold Fuente1 text-2xl relative">Parece que no tienes proyectos, prueba creando uno nuevo </p>
+                        </div>
+                    </div>
             }
-        </Grid>
+
+        </div>
     )
 }
+{/* <Grid mt={1} className='animate__animated animate__fadeInLeft animate__faster'>
+        {
+            Proyectos.map((proyecto, index) => (
+                <Grid mb={1} key={index}>
+                    <Card variant="outlined">
+                        <Grid container justifyContent='space-between'>
+                            <Grid>
+                                <Link component={RouterLink} to='/Proyecto' onClick={() => dispatch(setActiveP(proyecto))}>
+                                    <Typography level="h4" fontWeight='bold'>{proyecto.Nombre}</Typography>
+                                </Link>
+                                <Typography level="h6">{proyecto.Descripcion}</Typography>
+                            </Grid>
+                            {
+                                (active.Owner === uid) &&
+                                <Box>
+                                    <MenuChicoProyectos idProyecto={proyecto.id} />
+                                </Box>
+                            }
+                        </Grid>
+                    </Card>
+                </Grid>
+            ))
+        }
+    </Grid> */}

@@ -39,6 +39,7 @@ export const loadProyectosPorUsuario = async( idUsuario ) => {
         proyectosTemporal.push({
             id: proyecto.id,
             Nombre: proyecto.Nombre,
+            Descripcion: proyecto.Descripcion, 
             Dias: getDiasDiff(new Date(), proyecto.FechaTermino),
             nActividades: nActividades,
             nActividadesRealizadas: cont,

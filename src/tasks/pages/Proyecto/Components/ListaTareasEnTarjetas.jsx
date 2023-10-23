@@ -13,8 +13,7 @@ export const ListaTareasEnTarjetas = ({ Tareas }) => {
         <Grid 
         container 
         className='animate__animated animate__fadeIn animate__faster'
-        /* width={{md: 800, xl: 1200}} */
-        justifyContent={{xs: 'center'}}
+        justifyContent='center'
         >
             {
                 Tareas.map((tarea, index) => (

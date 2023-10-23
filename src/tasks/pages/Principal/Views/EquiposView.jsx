@@ -1,11 +1,11 @@
-import { Avatar, AvatarGroup, Box, Button, Card, FormControl, FormLabel, Grid, Input, Modal, ModalClose, ModalDialog, Skeleton, Typography, Link } from "@mui/joy"
-import { MenuChico } from "../../../components/MenuChico"
-import { CardLoading, FloatingButton } from "../../../components"
+
+import { CardEquipos } from "../../../components"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../../../hooks";
 import { startCrearNuevoEquipo, startSelectEquipoActive } from "../../../../store/Equipos/thunks";
-import { Link as RouterLink } from "react-router-dom";
+import { Link, Link as RouterLink } from "react-router-dom";
+import { Avatar, AvatarGroup, Button, Card, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Textarea, useDisclosure } from "@nextui-org/react";
 
 const equipoNuevoData = {
     Nombre: '',
@@ -16,86 +16,73 @@ const equipoNuevoData = {
 export const EquiposView = () => {
 
     const { uid } = useSelector(state => state.auth);
-    //const {loading, equipos} = useSelector(state => state.equipos);
     const { Equipos } = useSelector(state => state.principal);
-    const [openModal, setOpenModal] = useState(false);
     const { Nombre, Descripcion, onInputChange, onResetForm } = useForm(equipoNuevoData);
     const dispatch = useDispatch();
-
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const onCreateEquipo = () => {
-        dispatch(startCrearNuevoEquipo({ Nombre, Descripcion, Owner: uid, Integrantes: [uid]}))
+        dispatch(startCrearNuevoEquipo({ Nombre, Descripcion, Owner: uid, Integrantes: [uid] }))
         onResetForm();
-        setOpenModal(false);
     }
 
-    //if(loading) return (<CardLoading />)
-
     return (
-        <>
-            <Grid sx={{ flexGrow: 1 }} container spacing={2} className='animate__animated animate__fadeIn animate__faster'>
-                <Grid xs={12}>
-                    <Grid container justifyContent="center" spacing={2}>
-                        {Equipos.map((equipo, index) => (
+        <div className="animate__animated animate__fadeIn animate__faster">
+            {
+                Equipos.length > 0
+                    ?
+                    <div className="flex gap-4">
+                        {
+                            Equipos.map((equipo, index) => (
+                                <CardEquipos key={index} Data={equipo} />
+                            ))
+                        }
+                    </div>
+                    :
+                    <div className="grid place-items-center h-full">
+                        <div className="flex flex-col items-center">
+                            <img src="./assets/images/noData.svg" width='512px' height='300px' />
+                            <p className="font-bold Fuente1 text-2xl relative bottom-16">Parece que no tienes equipos, intenta crear uno o espera a que alguien te una al suyo</p>
+                        </div>
+                    </div>
+            }
 
-                            <Grid key={index}>
-                                <Card variant="outlined" sx={{ width: {xs: '300px', md: '380px'}, mb: 1}}>
-                                    <Grid container justifyContent='space-between'>
-                                        <Box width='90%'>
-                                            <Link component={RouterLink} underline="none" to="/Equipo" onClick={() => {dispatch(startSelectEquipoActive(equipo))}}>
-                                                <Typography level="h3" fontWeight='bold'> {equipo.Nombre} </Typography>
-                                            </Link>
-                                            <Typography> {equipo.Descripcion} </Typography>
-                                            {<AvatarGroup>
-                                              {
-                                                equipo.infoU.map((p, index) => (
-                                                    <Avatar src={p.photoURL} key={index}>
-                                                        <Skeleton loading></Skeleton>
-                                                    </Avatar>
-                                                ))
-                                               } 
-                                            </AvatarGroup>}
-                                        </Box>
-                                        {
-                                            (equipo.Owner === uid) && 
-                                            <Box width='10%'>
-                                                <MenuChico idEquipo={equipo.id} />
-                                            </Box>
-                                        }
-                                    </Grid>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
-            </Grid>
-
-            <FloatingButton fn={() => setOpenModal(!openModal)}>
-                <i className="bi bi-plus-lg"></i> <Box ml={1}> Nuevo equipo </Box>
-            </FloatingButton>
-
-            <Modal open={openModal}>
-                <ModalDialog>
-                    <ModalClose onClick={() => setOpenModal(!openModal)} />
-                    <Typography fontWeight='bold' fontSize={20}>Crear nuevo equipo</Typography>
-                    <Typography mb={2}>Ingresa la información de tu nuevo equipo</Typography>
-                    <FormControl>
-                        <FormLabel sx={{ fontWeight: 'bold' }}>Nombre</FormLabel>
-                        <Input name="Nombre" value={Nombre} onChange={onInputChange} />
-                    </FormControl>
-                    <FormControl>
-                        <FormLabel sx={{ fontWeight: 'bold' }}>Descripción</FormLabel>
-                        <Input name="Descripcion" value={Descripcion} onChange={onInputChange} />
-                    </FormControl>
-                    <Button sx={{ marginTop: 2 }} onClick={onCreateEquipo}>
-                        Crear
-                    </Button>
-                </ModalDialog>
+            <Button className="absolute bottom-5 right-5 bg-[#6c5d98] text-white" onClick={onOpen}><i className="bi bi-plus-lg" /> Nuevo equipo</Button>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">
+                                <p className="text-xl Fuente1">Crear nuevo equipo</p>
+                                <p className="text-md font-medium Fuente1 ">Ingresa la información de tu nuevo equipo</p>
+                            </ModalHeader>
+                            <ModalBody>
+                                <Input
+                                    label="Nombre"
+                                    placeholder="Ingresa el nombre de tu equipo"
+                                    autoComplete="off"
+                                    name="Nombre"
+                                    value={Nombre}
+                                    onChange={onInputChange}
+                                />
+                                <Textarea
+                                    placeholder="Agrega una descripción de tu equipo"
+                                    label="Descripción"
+                                    name="Descripcion"
+                                    value={Descripcion}
+                                    onChange={onInputChange}
+                                />
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="primary" className="Fuente1 bg-[#6c5d98]" onPress={onClose} onClick={onCreateEquipo}>
+                                    Crear
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
             </Modal>
-
-        </>
+        </div>
 
     )
 }
-
-

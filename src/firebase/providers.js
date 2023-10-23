@@ -54,7 +54,7 @@ export const registerWithEmailAndPassword = async( usuario ) => {
         const { uid } = result.user;
         
         const newDoc = doc(FirebaseDB, `Usuarios`, uid);
-        await setDoc( newDoc, {displayName, Rol});
+        await setDoc( newDoc, {displayName, rol: Rol});
 
         return {
             ok: true,

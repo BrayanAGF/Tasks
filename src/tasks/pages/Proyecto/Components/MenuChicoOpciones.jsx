@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setViewMode } from "../../../../store/Tareas/tareasSlice";
 import { useEffect } from "react";
+import { addProyectoFavorito, startAddFavorito } from "../../../../store";
 
 
 export const MenuChicoOpciones = () => {
@@ -30,15 +31,15 @@ export const MenuChicoOpciones = () => {
             localStorage.setItem('vistaTareas', JSON.stringify('Normal'))
         }
     }, [switchValue])
-    
-    
+
+
     const onHandleSwitch = () => {
         setSwitchValue(!switchValue);
     }
 
     return (
         <Grid container onClick={onHandleOpen}
-            sx={{ position: 'absolute', top: {xs: 66,md: 15}, bottom: 0, left: {xs: '85vw', md: '93vw'}, right: 0, zIndex: 10 }}
+           /*  sx={{ position: 'absolute', top: { xs: 66, md: 15 }, bottom: 0, left: { xs: '85vw', md: '93vw' }, right: 0, zIndex: 10 }} */
             width={40}
             height={40}>
             <Box sx={{ cursor: 'pointer' }} width={40}>
@@ -54,7 +55,7 @@ export const MenuChicoOpciones = () => {
                 placement="bottom-end"
             >
 
-                <MenuItem >
+                <MenuItem onClick={() => dispatch(startAddFavorito())}>
                     <ListItemDecorator>
                         <Typography color='danger'><i className="bi bi-heart-fill"></i></Typography>
                     </ListItemDecorator>
@@ -73,7 +74,7 @@ export const MenuChicoOpciones = () => {
                                     <i className="bi bi-postcard-fill"></i>
                                 }
                                 onChange={onHandleSwitch}
-                            checked={switchValue}
+                                checked={switchValue}
                             />
                         </Grid>
                     </Grid>

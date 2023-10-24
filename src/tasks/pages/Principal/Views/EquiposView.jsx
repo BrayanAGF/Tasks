@@ -27,11 +27,11 @@ export const EquiposView = () => {
     }
 
     return (
-        <div className="flex flex-col gap-2  animate__animated animate__fadeIn animate__faster">
+        <div className="animate__animated animate__fadeIn animate__faster">
             {
                 Equipos.length > 0
                     ?
-                    <div className="flex gap-4">
+                    <div className="flex flex-col gap-2 md:flex-row">
                         {
                             Equipos.map((equipo, index) => (
                                 <CardEquipos key={index} Data={equipo} />

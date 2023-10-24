@@ -11,7 +11,7 @@ export const TareasView = () => {
 
     if (Tareas.length > 0) {
         return (
-            <div className='md:flex md:flex-row sm:flex-col gap-2 animate__animated animate__fadeIn animate__faster'>
+            <div className='flex flex-col gap-2 md:flex-row animate__animated animate__fadeIn animate__faster'>
                 {
                     Tareas.map((value, index) => (
                         <Card key={index} className='w-full md:w-4/12 lg:w-3/12'>

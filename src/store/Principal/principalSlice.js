@@ -4,40 +4,46 @@ export const principalSlice = createSlice({
     name: 'principal',
     initialState: {
         Equipos: [],
-        Tareas: [], 
+        Tareas: [],
         Proyectos: [],
         Loading: true
     },
     reducers: {
-        LoadingPrincipal: (state, {payload}) => {
+        LoadingPrincipal: (state, { payload }) => {
             state.Loading = payload;
         },
-        setEquiposPrincipal: (state, {payload}) => {
+        setEquiposPrincipal: (state, { payload }) => {
             state.Equipos = payload;
         },
-        DeleteEquipo: (state, {payload}) => {
+        DeleteEquipo: (state, { payload }) => {
             state.Equipos = state.Equipos.filter(equipo => equipo.id !== payload);
         },
-        EditEquipo: (state, {payload}) => {
+        EditEquipo: (state, { payload }) => {
             const equiposTemporal = state.Equipos.filter(equipo => equipo.id !== payload.id);
             state.Equipos = [...equiposTemporal, payload];
         },
-        setTareasPrincipal: (state, {payload}) => {
+        setTareasPrincipal: (state, { payload }) => {
             state.Tareas = payload;
         },
-        setProyectosPrincipal: (state, {payload}) => {
+        setProyectosPrincipal: (state, { payload }) => {
             state.Proyectos = payload;
         },
+        setPrincipalOff: (state) => {
+            state.Equipos = [];
+            state.Tareas = [];
+            state.Proyectos = [];
+        }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { 
+export const {
     LoadingPrincipal,
     setEquiposPrincipal,
     setProyectosPrincipal,
     setTareasPrincipal,
     DeleteEquipo,
-    EditEquipo
+    EditEquipo,
+    setPrincipalOff
 } = principalSlice.actions;

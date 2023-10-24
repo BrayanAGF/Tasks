@@ -5,6 +5,12 @@ import { FirebaseAuth, FirebaseDB, FirebaseStorage } from "../../firebase/config
 import { doc, setDoc } from "firebase/firestore/lite";
 import { updateProfile } from "firebase/auth";
 import { supabase } from "../../supabase";
+import { setActividadOff } from "../Actividad";
+import { setArchivosOff } from "../Archivos";
+import { setActiveOff } from "../Equipos";
+import { setPrincipalOff } from "../Principal/principalSlice";
+import { setProyectosOff } from "../Proyectos";
+import { setTareasOff } from "../Tareas/tareasSlice";
 
 export const startGoogleSingIn = () => {
     return async (dispatch) => {
@@ -44,6 +50,12 @@ export const startLogout = () => {
     return async (dispatch) => {
         await logoutFirebase();
         dispatch(logout());
+        dispatch(setActividadOff());
+        dispatch(setArchivosOff());
+        dispatch(setActiveOff());
+        dispatch(setPrincipalOff());
+        dispatch(setProyectosOff());
+        dispatch(setTareasOff());
     }
 }
 

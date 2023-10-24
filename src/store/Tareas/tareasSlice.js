@@ -19,7 +19,7 @@ export const tareasSlice = createSlice({
       state.TNotas = payload.Notas;
       state.Tactive = payload;
     },
-    setTActividades: (state, {payload}) => {
+    setTActividades: (state, { payload }) => {
       state.TActividades = payload;
     },
     addTarea: (state, { payload }) => {
@@ -37,19 +37,27 @@ export const tareasSlice = createSlice({
     },
     setViewMode: (state, { payload }) => {
       state.ViewMode = payload;
+    },
+    setTareasOff: (state) => {
+      state.Tareas = [];
+      state.Tactive = null;
+      state.TActividades = [];
+      state.TNotas = [],
+        state.ViewMode = 'Normal';
     }
   }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { 
-  setTareas, 
-  setTareaActiva, 
-  addTarea, 
-  addActividad, 
-  deleteTarea, 
-  addNota, 
+export const {
+  setTareas,
+  setTareaActiva,
+  addTarea,
+  addActividad,
+  deleteTarea,
+  addNota,
   setTActividades,
-  setViewMode
+  setViewMode,
+  setTareasOff
 } = tareasSlice.actions;

@@ -9,9 +9,12 @@ export const equiposSlice = createSlice({
         setActive: (state, {payload}) => {
             state.active = payload;
         },
+        setActiveOff: (state) => {
+            state.active = null;
+        }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { setActive } = equiposSlice.actions;
+export const { setActive, setActiveOff } = equiposSlice.actions;

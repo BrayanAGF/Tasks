@@ -25,7 +25,7 @@ export const ModalCrearProyecto = () => {
 
     return (
         <>
-            <Button className="fixed bottom-5 right-5 bg-[#516BEB] text-white" onClick={onOpen}><i className="bi bi-plus-lg" /> Nuevo proyecto </Button>
+            <Button className="fixed bottom-5 right-5 bg-[#6c5d98] text-white Fuente1" onClick={onOpen}><i className="bi bi-plus-lg" /> Nuevo proyecto </Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (

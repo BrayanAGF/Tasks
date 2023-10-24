@@ -14,10 +14,13 @@ export const archivosSlice = createSlice({
         },
         deleteArchivo: (state, {payload}) => {
             state.Archivos = state.Archivos.filter(a => a.id !== payload);
+        },
+        setArchivosOff: (state) => {
+            state.Archivos = [];
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { setArchivos, addArchivo, deleteArchivo } = archivosSlice.actions;
+export const { setArchivos, addArchivo, deleteArchivo, setArchivosOff } = archivosSlice.actions;

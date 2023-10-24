@@ -6,7 +6,7 @@ import { Avatar, AvatarGroup, Divider, Tab, Tabs, Tooltip } from "@nextui-org/re
 
 
 export const Equipo = () => {
-    
+
     const { active } = useSelector(state => state.equipos);
     const { uid } = useSelector(state => state.auth);
 
@@ -28,7 +28,7 @@ export const Equipo = () => {
                         }
                     </AvatarGroup>
                     {
-                        active.Owner === uid && <ModalAgregarUsuario/>
+                        active.Owner === uid && <ModalAgregarUsuario />
                     }
                 </div>
                 <Divider className="mt-2" />
@@ -38,11 +38,11 @@ export const Equipo = () => {
                 <Tabs aria-label="Dynamic tabs" fullWidth
                     classNames={{
                         tabList: 'bg-[#E9ECEF] rounded-lg text-white',
-                        tabContent: 'group-data-[selected=true]:text-[#516BEB] text-[#85898C] hover:text-[#516BEB] ',
+                        tabContent: 'group-data-[selected=true]:text-[#837bb6] text-[#85898C] hover:text-[#516BEB] ',
                     }}>
 
                     <Tab key={0} title='Proyectos'>
-                        <ProyectosEquipoView/>
+                        <ProyectosEquipoView />
                     </Tab>
 
                     <Tab key={1} title='Integrantes'>
@@ -52,7 +52,10 @@ export const Equipo = () => {
                 </Tabs>
             </div>
 
-            <ModalCrearProyecto  />            
+            {
+                active.Owner === uid && <ModalCrearProyecto />
+            }
+            
         </div>
     )
 }

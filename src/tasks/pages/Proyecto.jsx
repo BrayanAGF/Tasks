@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { startLoadProyecto } from "../../store";
 import { getDiasDiff } from "../helpers";
 import { CircularLoading } from "../components/CircularLoading";
-import { MenuChicoOpciones } from "./Proyecto/Components";
+
 import { Progress, Tab, Tabs } from "@nextui-org/react";
 
 export const Proyecto = () => {

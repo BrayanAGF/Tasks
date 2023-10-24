@@ -27,7 +27,7 @@ export const EquiposView = () => {
     }
 
     return (
-        <div className="animate__animated animate__fadeIn animate__faster">
+        <div className="flex flex-col gap-2  animate__animated animate__fadeIn animate__faster">
             {
                 Equipos.length > 0
                     ?
@@ -47,7 +47,7 @@ export const EquiposView = () => {
                     </div>
             }
 
-            <Button className="absolute bottom-5 right-5 bg-[#6c5d98] text-white" onClick={onOpen}><i className="bi bi-plus-lg" /> Nuevo equipo</Button>
+            <Button className="fixed bottom-5 right-5 bg-[#6c5d98] text-white" onClick={onOpen}><i className="bi bi-plus-lg" /> Nuevo equipo</Button>
             <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
                 <ModalContent>
                     {(onClose) => (

@@ -2,7 +2,7 @@
 import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { startLoadArchivo } from '../../../../store';
-import { MenuChicoArchivos } from '../Components';
+
 import { Avatar, Card, CardBody, Tooltip } from '@nextui-org/react';
 
 

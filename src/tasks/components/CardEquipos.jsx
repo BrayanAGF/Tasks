@@ -38,7 +38,7 @@ export const CardEquipos = ({ Data }) => {
 
 
     return (
-        <Card className="w-4/12 h-full">
+        <Card className="w-full md:w-4/12 lg:w-3/12 h-full">
             <div className="flex justify-between px-3 py-2">
                 <div className="flex flex-col items-start gap-2 w-full">
                     <Link to='/Equipo' onClick={() => dispatch(startSelectEquipoActive(Data))}>

@@ -6,7 +6,7 @@ export const IntegrantesEquipoView = () => {
     const { active } = useSelector(state => state.equipos);
 
     return (
-        <div className="w-full justify-around flex">
+        <div className="flex flex-col gap-2 w-full md:flex-row md:justify-around ">
             {
                 active.infoU.map((usuario, index) => (
                     <div key={index} className="flex items-center gap-2">

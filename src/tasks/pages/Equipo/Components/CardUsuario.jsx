@@ -8,7 +8,7 @@ export const CardUsuario = ({ Usuario }) => {
     const [UsuarioAgregado, setUsuarioAgregado] = useState(false);
     const dispatch = useDispatch();
     const onHandleAgregarUsuario = async (usuario) => {
-        setUsuarioAgregado(true);
+         setUsuarioAgregado(true);
          dispatch(startAgregarUsuarioEquipo(usuario)); 
     }
 

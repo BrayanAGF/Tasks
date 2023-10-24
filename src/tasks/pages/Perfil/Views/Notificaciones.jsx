@@ -2,7 +2,7 @@ import { Card, CardBody } from "@nextui-org/react"
 
 export const Notificaciones = () => {
   return (
-    <Card className="w-[600px] animate__animated animate__fadeIn animate__faster">
+    <Card className="w-full md:w-[600px] animate__animated animate__fadeIn animate__faster">
         <CardBody className="grid place-items-center">
             <div className="flex flex-col items-center">
                 <img src="./assets/images/WIP.svg" height="350px" width="350px" />

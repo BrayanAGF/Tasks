@@ -6,10 +6,10 @@ export const Layout = ({ children }) => {
   return (
     <div className="h-screen w-screen">
       <Navbar />
-      <div className="ml-[320px] w-9/12 h-screen py-3 ">
+      <NavbarMobile />
+      <div className="md:ml-[18.5%] md:w-[80%] p-2 h-screen py-3 ">
         {children}
       </div>
-      {/* <NavbarMobile /> */}
     </div>
   )
 }

@@ -5,11 +5,13 @@ import { startSetActiveProyecto, startUpdateProgreso } from "../Proyectos"
 import { getInfoUser } from "../../tasks/helpers"
 import { startRegistrarActividad } from "../Actividad/thunks"
 import { setActive } from "../Equipos"
+import { enviarEmailTareaAsignada } from "../../helpers/emailProvider"
 
 
 export const startCreateTarea = (tarea) => {
     return async (dispatch, getState) => {
         const { Active } = getState().proyectos;
+        const { displayName } = getState().auth;
 
         const tareaInsertar = { ...tarea, IdProyecto: Active.id }
 
@@ -31,6 +33,7 @@ export const startCreateTarea = (tarea) => {
         for (const inte of Integrantes) {
             const usuario = await getInfoUser(inte);
             infoU.push(usuario);
+            enviarEmailTareaAsignada(usuario.email, usuario.displayName, displayName, tarea.Nombre, Active.Nombre);
         }
 
         tarea = { ...tarea, infoU }
@@ -45,7 +48,7 @@ export const startCreateTarea = (tarea) => {
 
 export const startCreateAndAddActividad = (actividad) => {
     return async (dispatch, getState) => {
-        
+
         dispatch(addActividad(actividad));
         const { TActividades, Tactive } = getState().tareas;
         const { id } = Tactive;
@@ -81,10 +84,10 @@ export const startMarkActividad = (posicion) => {
 
 export const startCreateNota = (NotaTarea) => {
     return async (dispatch, getState) => {
-        
+
         dispatch(addNota(nuevaNota));
         dispatch(startRegistrarActividad('Tarea', 'ha creado una nota en la tarea', Nombre));
-        
+
         const { Titulo, Nota } = NotaTarea;
         const { displayName, photoURL } = getState().auth;
         const { Tactive, TNotas } = getState().tareas;

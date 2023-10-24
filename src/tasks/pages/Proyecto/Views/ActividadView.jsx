@@ -23,7 +23,7 @@ export const ActividadView = () => {
                                         </div>
                                     </div>
                                     <div className='ml-10'>
-                                        <p className='flex gap-1'>
+                                        <p className='flex flex-col sm:flex-row gap-1 '>
                                             <p className='font-bold'>{act.Integrante} </p>
                                             {act.Mensaje}
                                             <p className='font-bold'> {act.Complemento}</p>

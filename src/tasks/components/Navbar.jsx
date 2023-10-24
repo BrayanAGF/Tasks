@@ -31,7 +31,7 @@ export const Navbar = () => {
     }
 
     return (
-        <div className="bg-[#352F44] h-screen w-2/12 flex flex-col justify-between fixed text-white Fuente1">
+        <div className="bg-[#352F44] hidden h-screen w-2/12 md:flex md:flex-col justify-between fixed text-white Fuente1">
 
             <div className="flex flex-col items-center">
                 <h2 className="text-4xl mt-5"><i className="bi bi-exclude" /> Tasks</h2>

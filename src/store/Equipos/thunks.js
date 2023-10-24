@@ -1,4 +1,5 @@
 import { FirebaseDB } from "../../firebase/config";
+import { enviarEmailEquipoAsignado } from "../../helpers/emailProvider";
 import { loadProyectosPorEquipo } from "../../tasks/helpers";
 import { startloadEquipos } from "../Principal";
 import { DeleteEquipo, EditEquipo } from "../Principal/principalSlice";
@@ -60,7 +61,7 @@ export const startAgregarUsuarioEquipo = (Usuario) => {
     return async(dispatch, getState) => {
 
         const { active } = getState().equipos;
-        const { Integrantes, infoU } = active;
+        const { Integrantes, infoU, Nombre } = active;
         const newIntegrantes = [...Integrantes, Usuario.id];
         const newInfoU = [...infoU, Usuario];
         const docRef = doc(FirebaseDB, `Equipos/${active.id}`);
@@ -72,5 +73,6 @@ export const startAgregarUsuarioEquipo = (Usuario) => {
         equipoConNuevoIntegrante = {...equipoConNuevoIntegrante, Integrantes: newIntegrantes, infoU: newInfoU}
 
         dispatch(setActive(equipoConNuevoIntegrante));
+        enviarEmailEquipoAsignado(Usuario.email,Nombre);
     }
 }

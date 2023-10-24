@@ -13,7 +13,7 @@ const formData = {
 }
 
 
-export const ModalCrearTarea = ({ open, set }) => {
+export const ModalCrearTarea = () => {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { Nombre, Descripcion, FechaTermino, onInputChange, formState, onResetForm } = useForm(formData);
@@ -45,7 +45,7 @@ export const ModalCrearTarea = ({ open, set }) => {
     }
 
     useEffect(() => {
-        console.log(integrantes);
+ 
         integrantes.length > 0 ? setValid(false) : setValid(true)
     }, [integrantes])
 
@@ -76,7 +76,6 @@ export const ModalCrearTarea = ({ open, set }) => {
 
         dispatch(startCreateTarea(nuevaTarea));
         onResetForm();
-        set();
     }
 
     const onHandleClose = () => {
@@ -84,7 +83,6 @@ export const ModalCrearTarea = ({ open, set }) => {
         setCheckState(new Array(infoU.length).fill(false));
         setIntegrantes([]);
         onResetForm();
-        set();
     }
 
     return (
@@ -94,7 +92,7 @@ export const ModalCrearTarea = ({ open, set }) => {
                     <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
                 </svg>
             </Button>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="h-[500px]" onClose={onHandleClose}>
                 <ModalContent>
                     {(onClose) => (
                         <>
@@ -111,7 +109,7 @@ export const ModalCrearTarea = ({ open, set }) => {
                                     }}>
 
                                     <Tab key={0} title='Detalles'>
-                                        <div className="flex flex-col gap-2">
+                                        <div className="flex flex-col gap-2 animate__animated animate__fadeIn animate__faster">
                                             <Input
                                                 label="Nombre"
                                                 placeholder="Ingresa el nombre de la tarea"
@@ -140,17 +138,19 @@ export const ModalCrearTarea = ({ open, set }) => {
                                     </Tab>
 
                                     <Tab key={1} title='Integrantes'>
-                                        {
-                                            infoU.map((usuario, index) => (
-                                                <div key={index} className="flex justify-between items-center">
-                                                    <div className="flex items-center gap-2">
-                                                        <Avatar src={usuario.photoURL} />
-                                                        <p className="Fuente1">{usuario.displayName}</p>
+                                        <div className="flex flex-col gap-2 animate__animated animate__fadeIn animate__faster">
+                                            {
+                                                infoU.map((usuario, index) => (
+                                                    <div key={index} className="flex justify-between items-center">
+                                                        <div className="flex items-center gap-2">
+                                                            <Avatar src={usuario.photoURL} />
+                                                            <p className="Fuente1">{usuario.displayName}</p>
+                                                        </div>
+                                                        <Checkbox isSelected={checkState[index]} onChange={(event) => onCheckedUsuario(index, usuario, event)} />
                                                     </div>
-                                                    <Checkbox isSelected={checkState[index]} onChange={(event) => onCheckedUsuario(index, usuario, event)} />
-                                                </div>
-                                            ))
-                                        }
+                                                ))
+                                            }
+                                        </div>
                                     </Tab>
 
 

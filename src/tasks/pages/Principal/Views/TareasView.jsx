@@ -11,10 +11,10 @@ export const TareasView = () => {
 
     if (Tareas.length > 0) {
         return (
-            <div className='flex gap-2 animate__animated animate__fadeIn animate__faster'>
+            <div className='md:flex md:flex-row sm:flex-col gap-2 animate__animated animate__fadeIn animate__faster'>
                 {
                     Tareas.map((value, index) => (
-                        <Card key={index} className='w-4/12'>
+                        <Card key={index} className='w-full md:w-4/12 lg:w-3/12'>
                             <CardBody>
                                 <Progress size='sm' aria-label="Loading..." value={value.progreso} className="max-w-md absolute top-0 right-0"
                                     classNames={{

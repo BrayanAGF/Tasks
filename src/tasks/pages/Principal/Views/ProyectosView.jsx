@@ -12,10 +12,10 @@ export const ProyectosView = () => {
 
     if (Proyectos.length > 0) {
         return (
-            <div className='flex gap-2 animate__animated animate__fadeIn animate__faster'>
+            <div className='flex flex-col gap-2 md:flex-row animate__animated animate__fadeIn animate__faster'>
                 {
                     Proyectos.map((value, index) => (
-                        <Card className='w-4/12' key={index}>
+                        <Card className='w-full md:w-4/12 lg:w-3/12' key={index}>
                             <CardBody>
                                 <Progress size='sm' aria-label="Loading..." value={value.Progreso} className="max-w-md absolute top-0 right-0"
                                     classNames={{

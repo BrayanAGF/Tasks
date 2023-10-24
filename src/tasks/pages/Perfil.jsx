@@ -8,11 +8,11 @@ export const Perfil = () => {
 
 
   return (
-    <div className='grid place-items-center h-5/6'>
+    <div className='md:grid md:place-items-center h-full md:h-5/6'>
      
-      <div className='flex items-start gap-2 w-8/12 h-4/6'>
+      <div className='flex flex-col md:flex-row items-start gap-2 md:w-8/12 h-full md:h-4/6'>
 
-        <Card className='Fuente1'>
+        <Card className='Fuente1 w-full md:w-6/12 lg:3/12'>
           <CardBody>
             <Listbox
               aria-label="Actions"

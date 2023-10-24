@@ -2,7 +2,7 @@ import { Button, Card, CardBody, Input } from "@nextui-org/react"
 
 export const Contrasena = () => {
     return (
-        <Card className="w-[600px] animate__animated animate__fadeIn animate__faster">
+        <Card className="w-full md:w-[600px] animate__animated animate__fadeIn animate__faster">
             <CardBody className="flex flex-col gap-2">
                 <Input
                     label="Contraseña nueva"

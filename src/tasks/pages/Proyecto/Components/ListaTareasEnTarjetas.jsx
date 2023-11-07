@@ -1,55 +1,40 @@
-import { Avatar, AvatarGroup, Box, Button, Card, CardContent, CircularProgress, Grid, Link, Tooltip, Typography } from '@mui/joy'
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link as Routerlink } from 'react-router-dom'
 import { setTareaActiva } from '../../../../store/Tareas/tareasSlice'
+import { Avatar, AvatarGroup, Button, Card, CardBody, CircularProgress, Tooltip } from '@nextui-org/react';
 
 export const ListaTareasEnTarjetas = ({ Tareas }) => {
-    
+
     const dispatch = useDispatch();
-    
-    
+
+
     return (
-        <Grid 
-        container 
-        className='animate__animated animate__fadeIn animate__faster'
-        justifyContent='center'
-        >
+        <div className='flex md:flex-row xs:flex-col gap-2'>
             {
                 Tareas.map((tarea, index) => (
-                    <Card key={index} variant='outlined' sx={{ ml: 2, mb: 2, width: 200, height: '100%' }}>
-                        <CardContent>
-                            <Grid sx={{ display: 'grid', placeItems: 'center'}} textAlign='center'>
+                    <Card className='w-12/12 md:w-3/12'>
+                        <CardBody className='flex flex-col gap-1 justify-between items-center'>
+                            <div className='flex flex-col gap-1 items-center'>
                                 <AvatarGroup>
                                     {
                                         tarea.infoU.map((integrante, index) => (
-                                            <Tooltip title={integrante.displayName} key={index} arrow>
+                                            <Tooltip content={integrante.displayName} key={index} showArrow>
                                                 <Avatar src={integrante.photoURL} />
                                             </Tooltip>
                                         ))
                                     }
                                 </AvatarGroup>
-                                <Typography fontWeight='bold'>{tarea.Nombre}</Typography>
-                            </Grid>
-                            <Typography sx={{ mt: 1 }}>{tarea.Descripcion}</Typography>
-                            <Box container='true' sx={{display: 'grid', placeItems: 'center', mt: 1}}>
-                                <CircularProgress size="lg" determinate value={tarea.progreso}>
-                                    {tarea.nActividadesRealizadas} / {tarea.nActividades}
-                                </CircularProgress>
-                            <Link component={Routerlink} to='/Tarea' 
-                            onClick={() => dispatch(setTareaActiva(tarea))}
-                            underline='none'
-                            sx={{color: 'white', mt: 1}}
-                            >
-                            <Button> 
-                            Ver tarea
-                            </Button>
-                            </Link>
-                            </Box>
-                        </CardContent>
+                                <h5 className='text-xl'>{tarea.Nombre}</h5>
+                                <p className='text-center'>{tarea.Descripcion}</p>
+                                <CircularProgress value={tarea.progreso} showValueLabel classNames={{ svg: 'w-20 h-20', value: "text-xl font-semibold", track: "stroke-content2/10", indicator: "stroke-content2" }} />
+                            </div>
+                                <Routerlink to="/Tarea" className='justify-self-end'>
+                                    <Button className='bg-secondary text-white'  onClick={() => dispatch(setTareaActiva(tarea))}>Ver tarea</Button>
+                                </Routerlink>
+                        </CardBody>
                     </Card>
                 ))
             }
-        </Grid>
+        </div>
     )
 }

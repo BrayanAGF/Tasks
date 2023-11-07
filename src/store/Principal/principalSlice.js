@@ -32,6 +32,12 @@ export const principalSlice = createSlice({
             state.Equipos = [];
             state.Tareas = [];
             state.Proyectos = [];
+        },
+        quitarProyecto: (state, {payload}) => {
+            state.Proyectos = state.Proyectos.filter(p => p.id !== payload);
+        },
+        quitarTarea: (state, {payload}) => {
+            state.Tareas = state.Tareas.filter(t => t.id !== payload);
         }
     }
 });
@@ -45,5 +51,7 @@ export const {
     setTareasPrincipal,
     DeleteEquipo,
     EditEquipo,
-    setPrincipalOff
+    setPrincipalOff,
+    quitarProyecto,
+    quitarTarea
 } = principalSlice.actions;

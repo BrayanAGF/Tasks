@@ -9,6 +9,7 @@ import { addInfoUsuarios } from "../../tasks/helpers/addInfoUsuarios"
 import { setActive } from "../Equipos"
 import { loadActividad } from "../../tasks/helpers"
 import { setActividad } from "../Actividad"
+import { quitarProyecto, quitarTarea } from "../Principal/principalSlice"
 
 
 export const startCreateProyecto = (proyecto) => {
@@ -38,12 +39,13 @@ export const startDeleteProyecto = (idProyecto) => {
         tareasAEliminar.forEach(tarea => {
             const docRef = doc(FirebaseDB, `Tareas/${tarea.id}`);
             tareasIds.push(deleteDoc(docRef));
+            dispatch(quitarTarea(tarea.id));
         });
 
         await Promise.all(tareasIds);
 
         dispatch(deleteProyecto(idProyecto));
-
+        dispatch(quitarProyecto(idProyecto));
     }
 }
 
@@ -94,9 +96,9 @@ export const startLoadTareas = () => {
         const tareasNueva = await addInfoUsuarios(tareas);
         dispatch(startUpdateProgreso(tareasNueva));
         dispatch(setTareas(tareasNueva));
-        const viewMode = localStorage.getItem('vistaTareas')
+        const viewMode = localStorage.getItem('ViewMode')
         if (viewMode !== null) dispatch(setViewMode(viewMode.replaceAll('"', '')));
-
+        console.log(viewMode);
         dispatch(loadingProyectos(false));
 
     }

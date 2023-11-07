@@ -1,13 +1,11 @@
 import { useSelector } from "react-redux";
-import { CardLoading, CardProyectos } from "../../../components";
-
+import { CardProyectos } from "../../../components";
 
 
 export const ProyectosEquipoView = () => {
 
-    const { Proyectos, Loading } = useSelector(state => state.proyectos)
-
-    /* if (Loading) return (<CardLoading />) */
+    const { Proyectos } = useSelector(state => state.proyectos);
+    
 
     return (
         <div className="flex flex-col gap-2">
@@ -15,7 +13,7 @@ export const ProyectosEquipoView = () => {
                 Proyectos.length > 0
                     ?
                     Proyectos.map((value, index) => (
-                        <CardProyectos key={index} Data={value}/>
+                        <CardProyectos key={index} Data={value} />
                     ))
                     :
                     <div className="grid place-items-center h-4/5">
@@ -29,27 +27,3 @@ export const ProyectosEquipoView = () => {
         </div>
     )
 }
-{/* <Grid mt={1} className='animate__animated animate__fadeInLeft animate__faster'>
-        {
-            Proyectos.map((proyecto, index) => (
-                <Grid mb={1} key={index}>
-                    <Card variant="outlined">
-                        <Grid container justifyContent='space-between'>
-                            <Grid>
-                                <Link component={RouterLink} to='/Proyecto' onClick={() => dispatch(setActiveP(proyecto))}>
-                                    <Typography level="h4" fontWeight='bold'>{proyecto.Nombre}</Typography>
-                                </Link>
-                                <Typography level="h6">{proyecto.Descripcion}</Typography>
-                            </Grid>
-                            {
-                                (active.Owner === uid) &&
-                                <Box>
-                                    <MenuChicoProyectos idProyecto={proyecto.id} />
-                                </Box>
-                            }
-                        </Grid>
-                    </Card>
-                </Grid>
-            ))
-        }
-    </Grid> */}

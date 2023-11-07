@@ -1,5 +1,4 @@
-import { Grid } from "@mui/material"
-import { Card, CardBody, Image, Tab, Tabs } from "@nextui-org/react"
+import { Card, Tab, Tabs } from "@nextui-org/react"
 import { LoginPage } from "../pages/LoginPage"
 import { RegisterPage } from "../pages/RegisterPage"
 

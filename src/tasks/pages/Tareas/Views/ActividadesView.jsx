@@ -61,24 +61,20 @@ export const ActividadesView = () => {
                 {
                     Owner === uid
                     &&
-                    <Button isIconOnly className="rounded-full mt-2 bg-[#6c5d98] text-white h-10 w-10" onClick={() => setModoEdicion(!ModoEdicion)}>
+                    <Button isIconOnly className="mt-2" variant="light" onClick={() => setModoEdicion(!ModoEdicion)}>
                         {
                             ModoEdicion
                                 ?
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-                                </svg>
+                                <img src="./assets/svg/remove.svg" alt="remove" />
                                 :
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                    <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                                </svg>
+                                <img src="./assets/svg/addsquare.svg" alt="add" />
                         }
                     </Button>
                 }
             </div>
 
             <div id="BodyActividades">
-                <div className={`flex flex-col gap-2 mt-3 ${ModoEdicion ? '' : 'hidden'} animate__animated animate__fadeIn`}>
+                <div className={`flex flex-col gap-2 mt-3 ${ModoEdicion ? '' : 'hidden'} animate__animated animate__fadeIn Fuente1`}>
                     <Textarea
                         label="Actividad"
                         placeholder="Ingresa la descripción de la actividad"
@@ -87,7 +83,7 @@ export const ActividadesView = () => {
                         onChange={onInputChange}
                     />
                     <div className="flex justify-end">
-                        <Button className="bg-[#6c5d98] text-white Fuente1" onClick={onHandleCreateActividad}>Guardar</Button>
+                        <Button className="bg-secondary text-white Fuente1" onClick={onHandleCreateActividad}>Guardar</Button>
                     </div>
                 </div>
                 {
@@ -96,8 +92,8 @@ export const ActividadesView = () => {
                         TActividades.map((act, index) => (
                             <div key={index} className="my-1">
                                 <Checkbox isDisabled={available} isSelected={checkState[index]} onChange={() => !available && onCheckedActividad(index)}
-                                    className="Fuente1 animate__animated animate__pulse "
-
+                                    className="Fuente1 animate__animated animate__pulse"
+                                    classNames={{icon: "text-white"}}
                                 >
                                     {act.Descripcion}
                                 </Checkbox>

@@ -17,7 +17,7 @@ export const IntegrantesEquipoView = () => {
                         src={usuario.photoURL}></Avatar>
                         <div >
                             <p className="text-xl">{usuario.displayName}</p>
-                            <p className="text-lg text-[#85898C]">{usuario.rol}</p>
+                            <p className="text-lg text-[#85898C]">{usuario.rol ? usuario.rol : 'Usuario nuevo'}</p>
                         </div>
                     </div>
                 ))

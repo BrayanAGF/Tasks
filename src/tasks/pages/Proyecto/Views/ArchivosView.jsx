@@ -23,7 +23,7 @@ export const ArchivosView = () => {
         <div className='animate__animated animate__fadeIn animate__faster'>
             <h5 className="text-3xl">Archivos</h5>
             <div 
-            className='grid place-items-center h-14 w-full border-dashed border-2 rounded-lg border-[#6C757D] bg-[white] text-[#6C757D] hover:text-black hover:cursor-pointer'
+            className='grid place-items-center h-14 w-full border-dashed border-2 rounded-lg border-[#6C757D] bg-background text-[#6C757D] hover:text-content2 hover:cursor-pointer'
             onClick={() => fileInputRef.current.click()}
             >
                 Haz click aquí para subir un archivo
@@ -34,7 +34,7 @@ export const ArchivosView = () => {
             {
                 Archivos.map((archivo, index) => (
                     <Card key={index}>
-                        <CardBody container justifyContent='space-between' alignItems='center'>
+                        <CardBody>
                             <div className='flex'>
                                 <div className='flex relative'>
                                     <div className='bg-[#4c4365] text-white rounded-full h-10 w-10 grid place-items-center z-10'>

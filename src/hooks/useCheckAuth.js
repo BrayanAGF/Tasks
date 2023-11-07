@@ -1,9 +1,10 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { FirebaseAuth } from "../firebase/config";
+import { FirebaseAuth} from "../firebase/config";
 import { login, logout } from "../store/auth/authSlice";
 import { loadProyectosFavoritos } from "../helpers/loadProyectosFavoritos";
+import { getInfoUser } from "../tasks/helpers";
 
 export const useCheckAuth = () => {
 
@@ -13,9 +14,10 @@ export const useCheckAuth = () => {
   useEffect(() => {
     onAuthStateChanged(FirebaseAuth, async (user) => {
       if (!user) return dispatch(logout());
-      const { displayName, email, uid, photoURL } = user;
+      const { uid, providerData } = user;
+      const infoUser = await getInfoUser(uid);
       const ProyectosFavoritos = await loadProyectosFavoritos(uid);
-      dispatch(login({ displayName, email, uid, photoURL, ProyectosFavoritos }));
+      dispatch(login({ uid, ...infoUser, ProyectosFavoritos, 'providerId': providerData[0].providerId}));
     });
   }, [])
 

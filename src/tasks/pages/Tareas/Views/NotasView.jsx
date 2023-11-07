@@ -32,17 +32,13 @@ export const NotasView = () => {
 
             <div id="HeaderNotas" className="flex items-center gap-2">
                 <h3 className="text-3xl font-bold Fuente1">Notas</h3>
-                <Button isIconOnly className="rounded-full mt-2 bg-[#6c5d98] text-white h-10 w-10" onClick={() => setModoEdicion(!ModoEdicion)}>
+                <Button isIconOnly className="mt-2" variant="light" onClick={() => setModoEdicion(!ModoEdicion)}>
                     {
                         ModoEdicion
                             ?
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-                            </svg>
+                            <img src="./assets/svg/remove.svg" alt="remove" />
                             :
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                            </svg>
+                            <img src="./assets/svg/addsquare.svg" alt="add" />
                     }
                 </Button>
             </div>
@@ -77,7 +73,7 @@ export const NotasView = () => {
                         </CardBody>
                     </Card>
                     <div className="flex justify-end">
-                        <Button className="bg-[#6c5d98] text-white Fuente1" onClick={onHandleCreateNota}>Guardar</Button>
+                        <Button className="bg-secondary text-white Fuente1" onClick={onHandleCreateNota}>Guardar</Button>
                     </div>
                 </div>
 
@@ -85,7 +81,7 @@ export const NotasView = () => {
                     TNotas.length > 0
                         ?
                         TNotas.map((nota, index) => (
-                            <Card key={index} className="Fuente1 bg-[#FFF7DD] animate__animated animate__pulse">
+                            <Card key={index} className="Fuente1 bg-[#FFF7DD] animate__animated animate__pulse text-content1">
                                 <CardBody>
                                     <div>
                                         <div className="flex items-center gap-2">

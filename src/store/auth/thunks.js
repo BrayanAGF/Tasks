@@ -11,6 +11,7 @@ import { setActiveOff } from "../Equipos";
 import { setPrincipalOff } from "../Principal/principalSlice";
 import { setProyectosOff } from "../Proyectos";
 import { setTareasOff } from "../Tareas/tareasSlice";
+import { getInfoUser } from "../../tasks/helpers";
 
 export const startGoogleSingIn = () => {
     return async (dispatch) => {
@@ -20,29 +21,30 @@ export const startGoogleSingIn = () => {
 
         const { uid, photoURL, displayName, email } = resp;
 
-        const newDoc = doc(FirebaseDB, `Usuarios`, uid);
-        await setDoc(newDoc, { photoURL: photoURL, displayName: displayName, email: email }, { merge: true });
+        const infoUser = await getInfoUser(uid);
 
-        dispatch(login(resp));
+        if(!infoUser){
+            const newDoc = doc(FirebaseDB, `Usuarios`, uid);
+            await setDoc(newDoc, { photoURL: photoURL, displayName: displayName, email: email, rol: 'Usuario nuevo' }, { merge: true });
+        }
+
     }
 }
 
 export const startLoginWithEmailAndPassword = (Correo, Contraseña) => {
     return async (dispatch) => {
         dispatch(checkinCredentials());
-        const { ok, uid, displayName, email, photoURL, errorMessage } = await loginWithEmailAndPassword(Correo, Contraseña);
+        const { ok, errorMessage } = await loginWithEmailAndPassword(Correo, Contraseña);
 
         if (!ok) return dispatch(logout({ errorMessage }));
-        dispatch(login({ uid, displayName, email, photoURL }));
     }
 }
 
 export const startCreateUserWithEmailAndPassword = (usuario) => {
     return async (dispatch) => {
         dispatch(checkinCredentials());
-        const { ok, email, uid, displayName, errorMessage } = await registerWithEmailAndPassword(usuario);
+        const { ok, errorMessage } = await registerWithEmailAndPassword(usuario);
         if (!ok) return dispatch(logout({ errorMessage }));
-        dispatch(login({ email, uid, displayName }));
     }
 }
 

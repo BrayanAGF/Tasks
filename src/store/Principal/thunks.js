@@ -1,6 +1,9 @@
 import { addInfoUsuarios, loadEquipos, loadProyectosPorUsuario, loadTareasByUsuario } from "../../tasks/helpers";
+import { setActividadOff } from "../Actividad";
+import { setArchivosOff } from "../Archivos";
 import { setActive } from "../Equipos";
 import { setActiveP } from "../Proyectos";
+import { setTareasOff } from "../Tareas/tareasSlice";
 import { LoadingPrincipal, setEquiposPrincipal, setProyectosPrincipal, setTareasPrincipal } from "./principalSlice";
 
 export const startLoadApp = () => {
@@ -8,7 +11,9 @@ export const startLoadApp = () => {
         dispatch(startloadEquipos());
         dispatch(startLoadProyectosInicio());
         dispatch(startLoadTareasInicio());
-        
+        dispatch(setTareasOff());
+        dispatch(setArchivosOff());
+        dispatch(setActividadOff());
     }
 }
 

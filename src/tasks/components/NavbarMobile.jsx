@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import { startLogout } from "../../store/auth/thunks";
 import { Avatar, Navbar, NavbarBrand, NavbarContent, NavbarItem, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 
@@ -19,9 +19,9 @@ export const NavbarMobile = () => {
     }
 
     return (
-        <Navbar shouldHideOnScroll className="md:hidden sm:inline"
+        <Navbar shouldHideOnScroll className="md:hidden xs:inline"
             classNames={{
-                wrapper: 'bg-[#352F44] text-white flex items-center Fuente1'
+                wrapper: 'bg-primary text-white flex items-center Fuente1'
             }}
         >
             <NavbarBrand className="flex items-center">
@@ -44,17 +44,12 @@ export const NavbarMobile = () => {
                             <div className="flex flex-col gap-1 py-2">
                                 <Link to="/Perfil" onClick={() => setOpenMenu(false)}>
                                     <div className="text-small font-bold flex gap-2 items-center hover:bg-[#D4D4D8] hover:rounded-md hover:cursor-pointer px-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
-                                        </svg>
-                                        Perfil
+                                    <img src='./assets/svg/ajustes.svg' height="30px" width="30px" />
+                                        Ajustes
                                     </div>
                                 </Link>
                                 <div className="text-small font-bold flex gap-2 items-center hover:bg-[#D4D4D8] hover:rounded-md hover:cursor-pointer px-1" onClick={onlogout}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed" viewBox="0 0 16 16">
-                                        <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2zm1 13h8V2H4v13z" />
-                                        <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0z" />
-                                    </svg>
+                                    <img src="./assets/svg/salir.svg" height="30px" width="30px" alt="sesionCerrar" />
                                     Cerrar sesión
                                 </div>
                             </div>

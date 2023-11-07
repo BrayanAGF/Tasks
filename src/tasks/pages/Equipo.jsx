@@ -1,14 +1,23 @@
 
-import { useSelector } from "react-redux"
-import { ModalAgregarUsuario, ModalCrearProyecto, MenuChicoProyectos } from './Equipo/Components'
+import { useDispatch, useSelector } from "react-redux"
+import { ModalAgregarUsuario, ModalCrearProyecto} from './Equipo/Components'
 import { ProyectosEquipoView, IntegrantesEquipoView } from "./Equipo/Views";
 import { Avatar, AvatarGroup, Divider, Tab, Tabs, Tooltip } from "@nextui-org/react";
+import { useEffect } from "react";
+import { startSelectEquipoActive } from "../../store";
+import { CardLoadingProjects } from "../components";
 
 
 export const Equipo = () => {
 
     const { active } = useSelector(state => state.equipos);
     const { uid } = useSelector(state => state.auth);
+    const { Loading  } = useSelector(state => state.proyectos);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(startSelectEquipoActive(active));
+    }, [])
 
 
     return (
@@ -21,8 +30,8 @@ export const Equipo = () => {
                     <AvatarGroup className="flex justify-start mt-2">
                         {
                             active.infoU.map((value, index) => (
-                                <Tooltip content={value.displayName} placement="bottom" showArrow className="z-0">
-                                    <Avatar key={index} src={value.photoURL} />
+                                <Tooltip key={index} content={value.displayName} placement="bottom" showArrow className="z-0">
+                                    <Avatar src={value.photoURL} />
                                 </Tooltip>
                             ))
                         }
@@ -35,27 +44,33 @@ export const Equipo = () => {
             </div>
 
             <div id="BodyEquipo" className="mt-3 Fuente1 ">
-                <Tabs aria-label="Dynamic tabs" fullWidth
-                    classNames={{
-                        tabList: 'bg-[#E9ECEF] rounded-lg text-white',
-                        tabContent: 'group-data-[selected=true]:text-[#837bb6] text-[#85898C] hover:text-[#516BEB] ',
-                    }}>
+                {
+                    Loading
+                        ?
+                        <CardLoadingProjects />
+                        :
+                        <Tabs aria-label="Dynamic tabs" fullWidth
+                            classNames={{
+                                tabList: 'bg-content1 rounded-lg text-white',
+                                tabContent: 'group-data-[selected=true]:text-content2 text-content3 hover:text-secondary',
+                            }}>
 
-                    <Tab key={0} title='Proyectos'>
-                        <ProyectosEquipoView />
-                    </Tab>
+                            <Tab key={0} title='Proyectos'>
+                                <ProyectosEquipoView />
+                            </Tab>
 
-                    <Tab key={1} title='Integrantes'>
-                        <IntegrantesEquipoView />
-                    </Tab>
+                            <Tab key={1} title='Integrantes'>
+                                <IntegrantesEquipoView />
+                            </Tab>
 
-                </Tabs>
+                        </Tabs>
+                }
             </div>
 
             {
                 active.Owner === uid && <ModalCrearProyecto />
             }
-            
+
         </div>
     )
 }

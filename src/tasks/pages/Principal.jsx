@@ -2,7 +2,7 @@ import { EquiposView, ProyectosView, TareasView } from "./Principal/Views";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoadApp } from "../../store/Principal/thunks";
-import { CardLoading } from "../components";
+import { CardLoadingPrincipal } from "../components";
 import { Tab, Tabs } from "@nextui-org/react";
 
 
@@ -23,28 +23,28 @@ export const Principal = () => {
       <div>
         <Tabs aria-label="Dynamic tabs" fullWidth
           classNames={{
-            tabList: 'bg-[#E9ECEF] rounded-lg text-white',
-            tabContent: 'group-data-[selected=true]:text-[#837bb6] text-[#85898C] hover:text-[#516BEB] ',
+            tabList: 'bg-content1 rounded-lg text-white',
+            tabContent: 'group-data-[selected=true]:text-content2 text-content3 hover:text-secondary',
             panel: 'principalPanel'
           }}>
           <Tab key={0} title='Equipos'>
             {
               Loading
-                ? <CardLoading />
+                ? <CardLoadingPrincipal />
                 : <EquiposView />
             }
           </Tab>
           <Tab key={1} title='Proyectos'>
             {
               Loading
-                ? <CardLoading />
+                ? <CardLoadingPrincipal />
                 : <ProyectosView />
             }
           </Tab>
           <Tab key={2} title='Tareas'>
             {
               Loading
-                ? <CardLoading />
+                ? <CardLoadingPrincipal />
                 : <TareasView />
             }
           </Tab>

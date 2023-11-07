@@ -11,8 +11,8 @@ export const proyectosSlice = createSlice({
         Loading: true
     },
     reducers: {
-        loadingProyectos: (state, { payload }) => {
-            state.Loading = payload;
+        loadingProyectos: (state) => {
+            state.Loading = true;
         },
         setActiveP: (state, { payload }) => {
             state.Active = payload;

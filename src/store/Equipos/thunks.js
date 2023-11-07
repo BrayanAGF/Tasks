@@ -1,9 +1,12 @@
 import { FirebaseDB } from "../../firebase/config";
 import { enviarEmailEquipoAsignado } from "../../helpers/emailProvider";
 import { loadProyectosPorEquipo } from "../../tasks/helpers";
+import { setActividadOff } from "../Actividad";
+import { setArchivosOff } from "../Archivos";
 import { startloadEquipos } from "../Principal";
 import { DeleteEquipo, EditEquipo } from "../Principal/principalSlice";
-import { loadingProyectos, setProyectos } from "../Proyectos/";
+import { loadingProyectos, setProyectos, startDeleteProyecto } from "../Proyectos/";
+import { setTareasOff } from "../Tareas/tareasSlice";
 import { setActive } from "./equiposSlice";
 import { collection, deleteDoc, doc, setDoc } from 'firebase/firestore/lite'
 
@@ -38,6 +41,12 @@ export const startEditEquipo = (Equipo) => {
 export const startDeleteEquipos = (IdEquipo) => {
     return async(dispatch) => {
 
+        const proyectos = await loadProyectosPorEquipo(IdEquipo);
+
+        for (const proyecto of proyectos) {
+           dispatch(startDeleteProyecto(proyecto.id));
+        }
+
         const docRef = doc(FirebaseDB, `Equipos/${IdEquipo}`);
         await deleteDoc(docRef);
         dispatch(DeleteEquipo(IdEquipo));
@@ -47,12 +56,12 @@ export const startDeleteEquipos = (IdEquipo) => {
 
 export const startSelectEquipoActive = (equipo) => {
     return async(dispatch) => {
-
-        dispatch(setActive(equipo));
         dispatch(loadingProyectos());
         const proyectosDelEquipo = await loadProyectosPorEquipo(equipo.id);
         dispatch(setProyectos(proyectosDelEquipo));
-
+        dispatch(setTareasOff());
+        dispatch(setArchivosOff());
+        dispatch(setActividadOff());
     }
 }
 

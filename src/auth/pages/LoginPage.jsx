@@ -7,6 +7,8 @@ import { startGoogleSingIn, startLoginWithEmailAndPassword } from "../../store/a
 import { useForm } from "../../hooks/useForm"
 import { useEffect, useState } from "react"
 import { Button, Card, CardBody, Image, Input, Tab, Tabs } from "@nextui-org/react"
+import { EyeSlashFilledIcon } from '../../tasks/components/Icons/EyeSlashFilledIcon'
+import { EyeFilledIcon } from '../../tasks/components/Icons/EyeFilledIcon'
 
 
 const formData = {
@@ -18,7 +20,6 @@ const formData = {
 export const LoginPage = () => {
 
   const dispatch = useDispatch();
-  const [inputTypePass, setInputTypePass] = useState('password');
   const [passVisible, setPassVisible] = useState(false);
   const { correo, contraseña, onInputChange } = useForm(formData);
   const { errorMessage } = useSelector(state => state.auth);
@@ -30,12 +31,6 @@ export const LoginPage = () => {
   const onLoginWithEmailAndPassword = () => {
     dispatch(startLoginWithEmailAndPassword(correo, contraseña))
   }
-
-
-  useEffect(() => {
-    passVisible ? setInputTypePass('text') : setInputTypePass('password');
-  }, [passVisible])
-
 
   return (
     <form className="flex flex-col gap-4">
@@ -52,19 +47,28 @@ export const LoginPage = () => {
         isRequired
         label="Contraseña"
         placeholder="Ingresa tu contraseña"
-        type="password"
+        type={passVisible ? "text" : "password"}
+        endContent={
+          <button className="focus:outline-none" type="button" onClick={() => setPassVisible(!passVisible)}>
+            {passVisible ? (
+              <EyeSlashFilledIcon />
+            ) : (
+              <EyeFilledIcon />
+            )}
+          </button>
+        }
         name='contraseña'
         value={contraseña}
         onChange={onInputChange}
       />
-      
+
       <div className="flex flex-col gap-2 justify-end">
         <Button fullWidth color="primary" onClick={onLoginWithEmailAndPassword}>
           Ingresar
         </Button>
         <Button variant='flat' color='primary' onClick={onGoogleSignIn}>
-        <i className="bi bi-google" />
-        Ingresar con Google
+          <i className="bi bi-google" />
+          Ingresar con Google
         </Button>
       </div>
     </form>

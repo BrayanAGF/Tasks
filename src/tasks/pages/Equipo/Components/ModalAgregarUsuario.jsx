@@ -55,11 +55,8 @@ export const ModalAgregarUsuario = () => {
 
   return (
     <>
-      <Button isIconOnly className="rounded-full mt-2 bg-[#6c5d98] text-white" onClick={onOpen}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-plus-fill" viewBox="0 0 16 16">
-          <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-          <path fillRule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
-        </svg>
+      <Button isIconOnly className="rounded-full mt-2 ml-1" onClick={onOpen}>
+        <img src="./assets/svg/addUser.svg" width="30px" height="30px" alt="adduser" />
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} onClose={onHandleClose}>
         <ModalContent>
@@ -77,7 +74,7 @@ export const ModalAgregarUsuario = () => {
                   value={Nombre}
                   onChange={onInputChange}
                 />
-                <Button color="primary" className="Fuente1" onClick={onHandleBuscarUsuario}>
+                <Button className="Fuente1 bg-secondary text-white" onClick={onHandleBuscarUsuario}>
                   Buscar
                 </Button>
                 {
@@ -103,34 +100,3 @@ export const ModalAgregarUsuario = () => {
     </>
   )
 }
-
-{/* <Modal open={open}>
-  <ModalDialog>
-    <ModalClose onClick={onHandleClose} />
-    <Typography fontWeight='bold' fontSize={20}>Agregar un usuario</Typography>
-    <Typography mb={2}>Ingresa el nombre del usuario</Typography>
-    <FormControl>
-    <FormLabel sx={{ fontWeight: 'bold' }}>Nombre</FormLabel>
-    <Input name="Nombre" value={Nombre} onChange={onInputChange} autoComplete="off" />
-    </FormControl>
-    <Button sx={{ marginTop: 2 }} color="success" onClick={onHandleBuscarUsuario}>
-      <i className="bi bi-search"></i> <Box ml={1}>Buscar</Box>
-    </Button>
-    <Typography sx={{color: 'red'}}>{alerta}</Typography>
-    <Grid mt={1} maxHeight={120} overflow='scroll' sx={{overflowX: 'hidden'}}>
-      {
-        usuarios && usuarios.map((u, index) => (
-          <Grid key={index} container justifyContent='space-between'>
-            <Grid container alignItems='center' mb={1}>
-              <Avatar src={u.photoURL}/>
-              <Typography sx={{ ml: 1 }}>{u.displayName}</Typography>
-            </Grid>
-            <IconButton sx={{ borderRadius: 100, width: 32, height: 32}} onClick={() => onHandleAgregarUsuario(u)}>
-                            <i className="bi bi-plus-lg"></i>
-            </IconButton>
-          </Grid>
-        ))
-      }
-    </Grid>
-  </ModalDialog>
-</Modal> */}

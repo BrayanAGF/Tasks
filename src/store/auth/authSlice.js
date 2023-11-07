@@ -8,7 +8,9 @@ export const authSlice = createSlice({
         email: null,
         displayName: null,
         photoURL: null,
+        rol: null,
         ProyectosFavoritos: [],
+        providerId: null,
         errorMessage: null,
     },
     reducers: {
@@ -19,7 +21,9 @@ export const authSlice = createSlice({
             state.displayName = payload.displayName;
             state.photoURL = payload.photoURL;
             state.ProyectosFavoritos = payload.ProyectosFavoritos;
+            state.rol = payload.rol;
             state.errorMessage = null;
+            state.providerId = payload.providerId;
         },
         logout: (state, { payload }) => {
            state.status = 'not-authenticated';
@@ -27,8 +31,10 @@ export const authSlice = createSlice({
            state.email = null;
            state.displayName = null;
            state.photoURL = null;
+           state.rol = null;
            state.ProyectosFavoritos = [];
            state.errorMessage = payload?.errorMessage;
+           state.providerId = null;
         },
         checkinCredentials: (state) => {
             state.status = 'checking';

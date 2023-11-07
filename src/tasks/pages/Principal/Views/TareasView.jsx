@@ -17,8 +17,7 @@ export const TareasView = () => {
                     Tareas.map((value, index) => (
                         <Card key={index} className='w-full md:w-4/12 lg:w-3/12'>
                             <CardBody>
-                                <Progress size='sm' aria-label="Loading..." value={value.progreso} className="max-w-md absolute top-0 right-0"
-                                     classNames={{indicator: "bg-content2"}}/>
+                                <Progress size='sm' aria-label="Loading..." value={value.progreso} className="max-w-md absolute top-0 right-0" color='default'/>
                                 <Link to="/Tarea" onClick={() => dispatch(startSetTareaActiva(value))}>
                                     <p className='text-2xl font-bold'>{value.Nombre}</p>
                                 </Link>

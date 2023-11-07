@@ -14,7 +14,7 @@ export const ListaTareas = ({ Tareas }) => {
                 Tareas.map((value, index) => (
                     <Card key={index}>
                         <CardBody>
-                            <Progress size="sm" className="absolute top-0 left-0" value={value.progreso} classNames={{indicator: "bg-content2"}} />
+                            <Progress size="sm" className="absolute top-0 left-0" value={value.progreso}  color='default' />
                             <div className="flex justify-between">
                                 <div>
                                     <Link to="/Tarea" onClick={() => dispatch(setTareaActiva(value))}>

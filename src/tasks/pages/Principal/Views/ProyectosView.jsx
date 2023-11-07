@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Link as RouterLink } from 'react-router-dom'
 import { startSetActiveProyecto } from '../../../../store';
 import { Card, CardBody, Progress } from '@nextui-org/react';
-import { AddIcon } from '../../../components/Icons';
 
 export const ProyectosView = () => {
 
@@ -18,9 +17,7 @@ export const ProyectosView = () => {
                     Proyectos.map((value, index) => (
                         <Card className='w-full md:w-4/12 lg:w-3/12' key={index}>
                             <CardBody>
-                                <Progress size='sm' aria-label="Loading..." value={value.Progreso} className="max-w-md absolute top-0 right-0"
-                                     classNames={{indicator: "bg-content2"}}
-                                />
+                                <Progress size='sm' aria-label="Loading..." value={value.Progreso} className="max-w-md absolute top-0 right-0" color='default'/>
                                 <Link to="/Proyecto" onClick={() => dispatch(startSetActiveProyecto(value.id))}>
                                     <p className='text-2xl font-bold'>{value.Nombre}</p>
                                 </Link>

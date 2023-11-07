@@ -4,7 +4,7 @@ import { RegisterPage } from "../pages/RegisterPage"
 
 export const Layout = () => {
     return (
-        <div className="grid place-items-center h-screen bg-[#352F44]">
+        <div className="grid place-items-center h-screen bg-background Fuente1">
 
             <Card className="h-screen w-screen md:h-5/6 md:w-10/12 flex-col md:flex-row items-center rounded-none md:rounded-lg ">
                 <div className='h-1/3 md:h-full w-full'>

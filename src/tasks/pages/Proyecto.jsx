@@ -24,7 +24,7 @@ export const Proyecto = () => {
       <div id="HeaderProyecto" className="Fuente1">
         <h1 className="text-5xl" aria-label="Nombre">{Nombre}</h1>
         <h5 className="text-lg" aria-label="Descripcion">{Descripcion}</h5>
-        <Progress size="sm" value={ActiveProgreso} classNames={{indicator: "bg-content2"}}/>
+        <Progress size="sm" value={ActiveProgreso} color='default'/>
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 mt-1">
             <img src="./assets/svg/lista.svg" alt="lista" height="25px" width="25px" />

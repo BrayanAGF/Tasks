@@ -44,7 +44,8 @@ export const loadProyectosPorUsuario = async( idUsuario ) => {
             nActividades: nActividades,
             nActividadesRealizadas: cont,
             Progreso: progreso,
-            IdEquipo: proyecto.IdEquipo
+            IdEquipo: proyecto.IdEquipo,
+            FechaTermino: proyecto.FechaTermino
         })
     }
 

@@ -46,7 +46,7 @@ export const NotasView = () => {
             <div id="BodyNotas" className="mt-3">
 
                 <div className={`flex flex-col gap-2 my-2 ${ModoEdicion ? '' : 'hidden'} animate__animated animate__fadeIn`}>
-                    <Card className="Fuente1 bg-[#FFF7DD]">
+                    <Card className="Fuente1 bg-[#FFF7DD] text-black">
                         <CardBody>
                             <div className="flex flex-col gap-2">
                                 <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export const NotasView = () => {
                     TNotas.length > 0
                         ?
                         TNotas.map((nota, index) => (
-                            <Card key={index} className="Fuente1 bg-[#FFF7DD] animate__animated animate__pulse text-content1">
+                            <Card key={index} className="Fuente1 bg-[#FFF7DD] animate__animated animate__pulse text-black">
                                 <CardBody>
                                     <div>
                                         <div className="flex items-center gap-2">

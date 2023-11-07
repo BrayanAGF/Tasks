@@ -47,7 +47,7 @@ export const Tarea = () => {
             ))
           }
         </AvatarGroup>
-        <Progress size='sm' className='mt-2' value={progreso} classNames={{ indicator: 'bg-content2' }} />
+        <Progress size='sm' className='mt-2' value={progreso} color='default' />
         <div className='flex justify-between items-center Fuente1'>
           <div className='flex items-center gap-2 mt-1'>
           <img src="./assets/svg/lista.svg" alt="lista" height="25px" width="25px" />

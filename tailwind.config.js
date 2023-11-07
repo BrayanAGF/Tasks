@@ -38,7 +38,8 @@ export default {
           secondary: "#5f3c54",
           content1: "#E9ECEF",
           content2: "#331D2C",
-          content3: "#331D2C"
+          content3: "#331D2C",
+          
         }
       },
     }

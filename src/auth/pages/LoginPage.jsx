@@ -63,10 +63,10 @@ export const LoginPage = () => {
       />
 
       <div className="flex flex-col gap-2 justify-end">
-        <Button fullWidth color="primary" onClick={onLoginWithEmailAndPassword}>
+        <Button fullWidth className='bg-secondary text-white' onClick={onLoginWithEmailAndPassword}>
           Ingresar
         </Button>
-        <Button variant='flat' color='primary' onClick={onGoogleSignIn}>
+        <Button fullWidth variant='flat' className='bg-secondary text-white' onClick={onGoogleSignIn}>
           <i className="bi bi-google" />
           Ingresar con Google
         </Button>

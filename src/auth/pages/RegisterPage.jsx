@@ -77,7 +77,7 @@ export const RegisterPage = () => {
 
 
       <div className="flex gap-2 justify-end">
-        <Button fullWidth color="primary" onClick={onRegister}>
+        <Button fullWidth className='bg-secondary text-white' onClick={onRegister}>
           Registrarme
         </Button>
       </div>
